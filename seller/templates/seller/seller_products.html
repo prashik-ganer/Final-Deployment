@@ -1,0 +1,49 @@
+{% extends 'seller/basic.html' %}
+
+{% block seller_productsactive %}active{% endblock seller_productsactive %}
+
+{% block title %}Products{% endblock title %}
+
+{% block css %}
+<style>
+.card-body {
+    
+}
+
+
+</style>
+{% endblock css %}
+
+{% block body %}
+
+<div class="container mt-3">
+  <div class="heading">
+    <h1 class="text-primary"><b>PRODUCTS</b></h2>
+  </div>
+</div>
+
+
+<div class="container row mt-3 mx-auto">
+{% for product in products %}
+    <div class="col-sm-4 card-deck d-flex flex-column my-2 ">
+    <div class="card d-inline"> 
+        <img src="/media/{{product.image}}" class="card-img-top" alt="...">
+        <div class="card-body p-3">
+        <a><h5 class="card-title" style="font-size: medium;">{{product}}</h5></a>
+        <p class="card-text my-1" style="font-size: small;">{{product.desc| slice:"0:150"}}...</p>
+        <p class="card-text"><small class="text-muted">Publication Date: {{product.pub_date}}</small></p>
+        </div>
+    </div>
+    </div>
+
+
+
+{% endfor %}
+</div>
+
+
+
+{% endblock body %}
+
+
+{% block js %}{% endblock js %}

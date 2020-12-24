@@ -1,0 +1,341 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} CheckOut - SHOPHUNT{% endblock %}
+{% block body %}
+<div class="mainContainer">
+  <div class="container pb-5">
+
+    <div class="col my-4">
+
+      <h3><b>Step 1 - SHOPHUNT Chekout -</b> Review Your Cart Items: </h3>
+      <div class="my-4">
+
+        <ul class="list-group" id="items">
+          <!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
+
+        </ul>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mt-2">
+            <li class="breadcrumb-item active" aria-current="page">
+              Your cart total is <b>₹ <span id="totalPrice"></span></b>. Enter your details & place the order. Thanks
+              for
+              using SHOPHUNT
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="container"> 
+    <div class="custom-control custom-switch">
+      <input type="checkbox" name="removepunc" class="custom-control-input" id="customSwitch1">
+      <label class="custom-control-label" for="customSwitch1">Remove Punctuations</label>
+    </div>
+
+    <div class="custom-control custom-switch">
+      <input type="checkbox" name="fullcaps" class="custom-control-input" id="customSwitch2">
+      <label class="custom-control-label" for="customSwitch2">UPPERCASE</label>
+    </div>
+      <div class="btn-group btn-group-toggle d-inline" data-toggle="buttons">
+        <label id="pickup" class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" aria-controls="collapseExample">
+          <input type="radio" name="options" id="option1" data-toggle="collapse" autocomplete="off" href="#collapseExample1" aria-controls="collapseExample">  PICKUP
+        </label>
+        <label order="order" class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" aria-controls="collapseExample">
+          <input type="radio" name="options" id="option3"  autocomplete="off" href="#collapseExample2" aria-controls="collapseExample"> ORDER
+        </label>
+      </div>
+    </div>
+    <div class="container mt-4">
+      {% comment %} <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Pickup
+        </a>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+         Order 
+        </button>
+        
+      </p> {% endcomment %}
+
+      <div class="collapse" id="collapseExample1">
+        <div class="card card-body">
+        <div class="col my-4">
+        <h3><b>Checkout Information: </b></h3>
+
+        <form method="post" action="/shop/checkout/">
+          {% csrf_token %}
+          <input type="hidden" name="itemsJson" id="itemsJson1">
+          <input type="hidden" name="totalPrice_database" id="totalPrice_database1">
+          
+          {% if user.is_authenticated %}
+        
+              <div class="row">
+                <div class="form-group col-4">
+                  <label for="inputPhone">Phone Number</label>
+                  <input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Phone number">
+                </div>
+                {% comment %} <div class="col-md-4 mb-3">
+                  <label for="Email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="" required="">
+                </div> {% endcomment %}
+              </div>
+              <button class="btn btn-primary" type="submit">Place Order</button>
+
+          {% else %}
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="firstName">Name</label>
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="" required="">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="inputPhone">Phone Number</label>
+                  <input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Phone"> 
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="Email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="" required="">
+                  <small class="text-muted">(To Track your order)</small>
+                </div>
+              </div>
+            <div class="row">
+              <div class="form-group col-md-3">
+                  <button class="btn btn-primary" type="submit">Place Order</button>
+              </div>
+
+        {% endif %}
+      </form>
+        
+        </div>
+      </div>
+      </div>
+      </div>
+
+
+    <div class="collapse" id="collapseExample2">
+      <div class="card card-body">
+        
+        <div class="col my-4">
+          <h3><b>Delivery location: </b></h3>
+
+          <!--    CHECK OUT FORM starts here   -->
+          <form method="post" action="/shop/checkout/">
+            {% csrf_token %}
+            <input type="hidden" name="itemsJson" id="itemsJson2">
+            <input type="hidden" name="totalPrice_database" id="totalPrice_database2">
+            
+            {% if user.is_authenticated %}
+            <div class="row">
+              <div class="form-group col-4">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="address1" name="address1" placeholder="1234 Main St">
+              </div>
+
+              <div class="form-group col-4">
+                <label for="inputAddress2">Address line 2</label>
+                <input type="text" class="form-control" id="address2" name="address2"
+                  placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-group col-4">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code">
+              </div>
+              <div class="form-group col-4">
+                <label for="inputPhone">Phone Number</label>
+                <input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Phone number">
+              </div> 
+            </div>
+            <button class="btn btn-primary" type="submit">Place Order</button>
+
+            {% else %}
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="firstName">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="" required="">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="Email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="" required="">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="inputPhone">Phone Number</label>
+                <input type="tel" class="form-control" id="inputPhone" name="inputPhone">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-4">
+                <label for="inputAddress">Address line 1</label>
+                <input type="text" class="form-control" id="address1" name="address1" placeholder="1234 Main St">
+              </div>
+
+              <div class="form-group col-4">
+                <label for="inputAddress2">Address line 2</label>
+                <input type="text" class="form-control" id="address2" name="address2"
+                  placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="zip_code" name="zip_code" placeholder="Zip Code"> 
+            </div>
+            <div class="form-group col-md-3">
+                <button class="btn btn-primary" type="submit">Place Order</button>
+            </div>
+
+            {% endif %}
+            </form>
+
+
+
+        
+        
+        
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  } else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+
+  }
+
+
+  console.log(cart);
+  var sum = 0;
+  var totalPrice = 0;
+
+  // Express checkout here
+  if ($.isEmptyObject(cart)) {
+    //If object is empty
+    mystr = `<p>Your Cart is Empty. Please add some items to your cart before checking out.</p>`
+    $('#items').append(mystr);
+  }
+  else {
+    for (item in cart) {
+
+      let name = cart[item][1];
+      let qty = cart[item][0];
+      let itemPrice = cart[item][2];
+      sum = sum + qty
+      totalPrice = totalPrice + qty * itemPrice
+      mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                      ${name}
+                      <span class="badge badge-primary badge-pill">${qty}</span>
+                  </li>`
+      localStorage.setItem('totalPrice', totalPrice);
+      $('#items').append(mystr);                                                   // could also have used '.innerHTML' of Javascript but instead, chose '.append' function of Jquery
+
+
+    }
+
+
+  }
+
+
+  {% comment %} document.getElementById('cart').innerHTML = sum; {% endcomment %}
+  $('#itemsJson1').val(JSON.stringify(cart));
+  $('#itemsJson2').val(JSON.stringify(cart));
+  document.getElementById('totalPrice').innerHTML = totalPrice;
+  {% comment %} $('#totalPrice').val(totalPrice)); {% endcomment %}
+  // localStorage.clear();                                                         // To look forward to
+  
+
+  {% comment %} if (user != 'AnonymousUser') {
+        var received = "{{cart|escapejs}}"
+        //console.log("received : ",received)
+        var database_cart = JSON.parse("{{cart|escapejs}}")
+        localStorage.setItem('cart', JSON.stringify(database_cart));
+
+        //console.log(typeof database_cart)
+        console.log("parsed database_cart : ",database_cart)
+      } {% endcomment %}
+
+// localStorage.setItem('database_cart', JSON.stringify(database_cart));
+// database_cart_object = JSON.parse(localStorage.getItem('database_cart'));
+// console.log("two : ",database_cart_object)
+// console.log("This is Django cart : ")
+
+
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  } else {
+    console.log("internal")
+    console.log(localStorage.getItem('cart'))
+    cart = JSON.parse(localStorage.getItem('cart'));
+    console.log("cart : ",cart)
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    
+  }
+
+  {% comment %} $(`#pickup`).on('click', function(){
+			var testid = $(this).data('testid')
+			var saveBtn = $(`#save-${testid}`)
+			saveBtn.prop('disabled', false)
+
+		})	 {% endcomment %}
+
+
+
+  $('#popcart').popover();
+  // document.getElementById('popcart').setAttribute('data-content', '<h5>Cart for your items in cart</h5>')
+
+
+
+
+
+
+
+
+  {% if thank == True %}
+  // <!--  ALERT when checkout is completed  -->
+  alert('Thanks for Ordering. Your order is id {{id}}. Use this to track your order using order tracker.');
+  localStorage.clear();
+  document.location = "/shop/qrcode/id={{id}}";             // To redirect the user to the HomePage when he clicks on the alert box
+  {% endif %}
+
+
+
+
+  // console.log(cart);
+  console.log(totalPrice)
+  $('#totalPrice').val((totalPrice)); 
+  $('#totalPrice_database1').val((totalPrice)); 
+  $('#totalPrice_database2').val((totalPrice)); 
+
+</script>
+
+
+
+
+{% endblock js %}

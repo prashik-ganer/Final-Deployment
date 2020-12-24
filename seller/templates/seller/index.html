@@ -1,0 +1,48 @@
+{% extends 'seller/basic.html' %}
+
+{% block indexactive %}active{% endblock indexactive %}
+
+{% block title %}All Sellers{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block body %}
+
+<div class="container mt-2">
+
+
+
+<div class="box">
+		<h5>Sellers:</h5>
+		<hr>
+		<div class="">
+			<table class="table border">
+				<tbody>
+                    <tr>
+                        <th></th>
+                        <th>Seller_name</th>
+                        <th>Seller_email</th>
+                    
+                    {% for seller in sellers %}
+                        <tr>
+                            <td><a class="btn btn-sm btn-info" href="{% url 'seller' seller.id %}">View</a></td>
+                            <td>{{seller.seller_name}}</td>
+                            <td>{{seller.seller_email}}</td>
+                        </tr>
+                    {% endfor %}  
+                    </tr>
+			    </tbody>
+            </table>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+{% endblock body %}
+
+
+{% block js %}{% endblock js %}

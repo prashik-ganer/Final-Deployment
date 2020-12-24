@@ -1,0 +1,71 @@
+{% extends 'shop/basic.html' %}
+{% load static %}
+
+{% block css %}
+ .card {
+    width: 100%;
+    height: fit-content;
+    }
+
+{% endblock css %}
+
+{% block body %}
+
+<div class="container mt-4 d-flex justify-content-center">
+<br>
+<div class="row">
+    {% comment %} <col-md-6>
+        <div class="card card-body">
+           <img src='/media/qrcode/{{order_id}}.png' alt="">
+            
+        </div>
+    </col-md-6> {% endcomment %}
+    <col-md-6>
+        <div class="card" style="width: 18rem;">
+        <img src="/media/qrcode/{{order_id}}.png" class="card-img-top" alt="...">
+        <ul class="list-group list-group-flush ">
+            <li class="list-group-item " style="font-family:poppins;"><b>Scan this QR to get your order</b></li>
+        </ul>
+
+        <ul class="list-group list-group-flush ">
+            <li class="list-group-item">Order id : {{order_id}}</li>
+            <li class="list-group-item ">Total Amount : ₹ {{order.amount}}</li>
+            <li class="list-group-item">{{order.customer.email}}</li>
+            {% comment %} <li class="list-group-item d-flex justify-content-center">{{order.customer.email}}</li> {% endcomment %}
+            <li class="list-group-item">+91 {{order.customer.phone}}</li>
+        </ul>
+        <div class="card-body">
+        <div class="btn btn-primary">Another Order</div>
+        <div class="btn btn-primary">Back</div>
+        </div>
+        </div>
+    </col-md-6>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+{% block js %}
+<script>
+
+if (localStorage.getItem('cart') == null) {
+               var cart = {};
+            } else {
+               cart = JSON.parse(localStorage.getItem('cart'));
+               document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+
+            }
+</script>
+{% endblock js %}

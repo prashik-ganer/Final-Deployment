@@ -1,0 +1,282 @@
+{% extends 'seller/basic.html' %}
+
+{% block title %}Shop{% endblock title %}
+
+
+
+{% block css %}
+
+.message-alert{
+		border:1px solid #5e7356;
+		background-color: #ddf0d5;
+		color:#5e7356;
+		padding:10px;
+		border-radius: 3px;
+		width: 90%;
+		margin:0 auto;
+		margin-top: 20px;
+		text-align: center;
+	}
+    .card {
+    width: 100%;
+    height: fit-content;
+    }
+    .totalOrders-box, .ordersDelivered-box, .ordersPending-box{
+        background: dodgerblue;
+    }
+
+
+
+{% endblock css %}
+
+{% block body %}
+
+<div class="container-fluid">
+
+
+
+<br>
+<div class="row">
+	<div class="col-md-6">
+		<div class="card card-body">
+			<h5>Seller:</h5>
+			<hr>
+            
+			{% comment %} <a class="btn btn-outline-info  btn-sm btn-block" href="">Update Customer</a> {% endcomment %}
+			<a class="btn btn-outline-info  btn-sm btn-block p-2" href="products"><h3>Inventory</h3></a>
+
+		</div>
+	</div>
+
+	<div class="col-md-6">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Email: {{seller_email}}</p>
+			<p>Phone: {{seller_phone}}</p>
+		</div>
+	</div>
+
+	{% comment %} <div class="col-md">
+		<div class="card card-body">
+			<h5>Total Orders</h5>
+			<hr>
+			<!-- <h1 style="text-align: center;padding: 10px" id="order_count">{{order_count}}</h1> -->
+		</div>
+	</div> {% endcomment %}
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="col-md">
+			<div class="card totalOrders-box text-center text-white  mb-3" id="total-orders">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Total Orders</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{order_count}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="card ordersDelivered-box text-center text-white  mb-3" id="orders-delivered">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Orders Delivered</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{delivered}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col">
+		<div class="col-md">
+			<div class="ordersPending-box card text-center text-white  mb-3" id="orders-pending">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Orders Pending</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{pending}}</h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{{myFilter.form}}
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div>
+<br>
+
+
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tbody>
+				<h3><b>ORDERS</h3>
+                    <tr>
+						<th>Customer</th>
+                        <th>OrderId</th>
+                        <th>Products</th>
+                        <!-- <th>Items_json</th> -->
+                        <th>Date Orderd</th> 
+                        <th>Amount</th>
+                        <th>Mode</th>
+                        <th>Status</th>
+                        {% comment %} <th>Tracker</th> {% endcomment %}
+                        <th>Update Status</th>
+					</tr>
+                    {% for order_item in order %}
+					<tr>
+						<td>{{order_item.name}}</td>
+						<td>{{order_item.order_id}}</td>
+						<td>
+						<ul class="list-group" id="items_json{{order_item.order_id}}" >
+							<!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
+							
+						</ul></td>
+						<td>{{order_item.date_created|date:'D d M Y'}}</td>
+						<td>{{order_item.amount}}</td>
+						<td>{{order_item.mode}}</td>
+						<td>{{order_item.status}}</td> 
+						{% comment %} <td><a class="btn btn-sm btn-info" href="{% url 'sellerTracker' order_item.order_id %}">Tracker</a></td> {% endcomment %}
+						<td><a class="btn btn-sm btn-info" href="{% url 'updateStatus' order_item.order_id %}"><b>Update Status</b></a></td>
+						<!-- {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'update_order' order.id %}">Delete</a></td> {% endcomment %} -->
+                        </tr>
+						
+						{% endfor %}
+					</tbody>
+            </table>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+{% block js %}
+<script>
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  } else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+
+
+  }
+
+
+	var replaced_New = "{{replaced_New|escapejs}}"
+    //localStorage.setItem('dumped', dumped);
+	console.log(typeof replaced_New)
+	console.log("replaced2New : ",replaced_New)
+	parsed_replaced_New = JSON.parse(replaced_New)
+	console.log("parsed_order_items_list : ", parsed_replaced_New)
+	var count = Object.keys(parsed_replaced_New).length;
+	console.log("count : ", count)
+
+
+	buildTable(parsed_replaced_New)
+
+	function buildTable(data){
+
+		console.log("inside-funtion")
+        var table = document.getElementById('items_json_new')
+        var table_main = document.getElementById('table')
+        var jsontable = document.getElementById('jsontable')
+        
+		for (var item in parsed_replaced_New) {
+			
+			console.log("inside-1st forloop")
+			console.log("item : ", item)
+			console.log("data[items][0]", data[item][0])
+			let p = item
+			
+			for (var internal_items in data[item][0]){
+				
+				console.log("inside-2nd forloop")
+				console.log("internal_items : ", data[item][0][internal_items][1])
+				let item_name = data[item][0][internal_items][1]
+				let item_quantity = data[item][0][internal_items][0]
+				console.log("internal_items : ", internal_items)
+				let row = `
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						${item_name}
+						<span class="badge badge-primary badge-pill">${item_quantity}</span>
+					</li>`
+				//var row = `<tr>
+				//		<td><li class="list-group-item d-flex justify-content-between align-items-center">
+				//		${item_name}
+				// 		<span class="badge badge-primary badge-pill">${item_quantity}</span></td> 
+				//		                       
+				//</tr>`
+            	//jsontable.innerHTML += row
+					//<td>${data[item][0][internal_items][1]}</td>                       
+					// if (p!=internal_items){
+					// 	break
+					// }
+				console.log("item : at end of internal loop -> ", item)
+
+				 $('#items_json'+  item ).append(row);
+				
+			}	
+
+				// var row = table_main.insertRow(-1);
+				console.log("end of internal loop")
+				var break_loop = "break"
+				
+				console.log("outside end : ", item)
+			}
+
+    }    
+	
+
+var totalPrice
+for (item in cart) {
+
+	let name = cart[item][1];
+	let qty = cart[item][0];
+	let itemPrice = cart[item][2];
+	mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+					${name}
+					<span class="badge badge-primary badge-pill">${qty}</span>
+				</li>`
+	localStorage.setItem('totalPrice', totalPrice);
+	$('.items').append(mystr);
+	 }
+
+  console.log(cart);
+  
+</script>
+
+{% endblock js %}

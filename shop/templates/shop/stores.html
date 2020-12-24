@@ -1,0 +1,96 @@
+{% extends 'shop/basic.html' %}
+
+{% block storesactive %}active{% endblock storesactive %}
+
+{% block title %} STORES {% endblock title %}
+
+
+{% block body %}
+<!DOCTYPE html>
+<html>
+   
+   <head>
+      <script src = "https://maps.googleapis.com/maps/api/js"></script>
+      
+      <script>
+         function loadMap() {
+			
+            var mapOptions = {
+               center:new google.maps.LatLng(21.1458, 79.0882), 
+               zoom:14, 
+               mapTypeId:google.maps.MapTypeId.ROADMAP,
+
+
+
+
+              //  mapTypeControl: true,
+               
+              //  mapTypeControlOptions: {
+              //     style: google.maps.MapTypeControlStyle.DROPDOWN_MENU, mapTypeIds: [
+              //        google.maps.MapTypeId.ROADMAP,
+              //        google.maps.MapTypeId.TERRAIN
+              //     ]
+              //  },
+					
+              //  zoomControl: true,
+               
+              //  zoomControlOptions: {
+              //     style: google.maps.ZoomControlStyle.SMALL
+              //  }
+            
+				
+
+              //  panControl: true,
+              //  zoomControl: true,
+              //  scaleControl: true,
+              //  mapTypeControl:true,
+              //  streetViewControl:true,
+              //  overviewMapControl:true,
+              //  rotateControl:true
+            }
+            var map = new google.maps.Map(document.getElementById("sample"),mapOptions);
+            
+            
+            var marker = new google.maps.Marker({
+              position: new google.maps.LatLng(21.1458, 79.0882),
+              map: map,
+              //To make the marker bounce`
+              // animation:google.maps.Animation.BOUNCE 
+            });  
+
+            var infowindow = new google.maps.InfoWindow({                               // You can also open an infor window when user ckidks on the marker
+               content:"FUN & FOOD Village"
+            });
+				
+            infowindow.open(map,marker);
+            
+            //Zoom to 7 when clicked on marker
+            google.maps.event.addListener(marker,'click',function() {
+               map.setZoom(17);
+               map.setCenter(marker.getPosition());
+            });
+
+            // google.maps.event.removeListener(myListener);
+            // marker.setMap(null);
+         }
+
+			
+         google.maps.event.addDomListener(window, 'load', loadMap);
+            if (localStorage.getItem('cart') == null) {
+               var cart = {};
+            } else {
+               cart = JSON.parse(localStorage.getItem('cart'));
+               document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+
+            }
+      </script>
+      
+   </head>
+   
+   <body>
+      <div id = "sample" style = "width:100vw; height:100vh;"></div>
+   </body>
+   
+</html>
+{% endblock body %}

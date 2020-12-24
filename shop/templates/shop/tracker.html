@@ -1,0 +1,146 @@
+{% extends 'shop/basic.html' %}
+
+{% block trackeractive %}active{% endblock trackeractive %}
+
+{% block title %} Tracker - SHOPHUNT{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+  <div class="col my-4">
+
+    <h2><b>TRACK ORDER</b> </h2>
+
+    <form method="post" action="#" id="trackerForm">{% csrf_token %}
+        <!-- <input type="hidden" name="itemsJson" id="itemsJson">                    Not Needed here     -->
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="inputName">Order Id</label>
+            <input type="text" class="form-control" id="orderId" name="orderId" placeholder="OrderId">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="emailId" placeholder="Email">
+          </div>
+        </div>
+          <button type="submit" class="btn btn-primary">Track Order</button>          
+    </form>
+
+
+  </div>
+
+  <div class="col my-4">
+    <h3>Your order Status</h3>
+    <div class="my-4">
+
+        <ul class="list-group" id="items">                                      <!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
+            Enter your order Id and E-mail, then click on Track order button to find the details updates about your order.
+        </ul>
+      </div>
+
+      <h3>Your order Details</h3>
+    <div class="my-4">
+
+        <ul class="list-group" id="citems">                                      <!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
+            
+        </ul>
+      </div>
+  </div>
+
+</div>
+
+
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+
+
+console.log(cart);
+
+$('#trackerForm').submit(function(event){
+
+    $('#items').empty();
+    var formData = {
+        'orderId' : $('input[name=orderId').val(),
+        'emailId' : $('input[name=emailId').val(),
+        'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
+    };
+    console.log("formdata : ",formData)
+    // Now we'll process our form
+
+    $.ajax({
+        type: 'POST',
+        url: '/shop/tracker/',
+        data: formData,
+        encode: true
+    })
+
+    .done(function(data){
+        console.log("data",data)
+        console.log("entered")
+        data = JSON.parse(data);
+        console.log(data)
+        //updates = JSON.parse(data)
+        updates = data[0];
+        console.log("updates : ",updates)
+        // console.log(updates)
+        if(updates.length > 0 & updates != {}){        
+            for (i=0; i<updates.length; i++) {
+                let text = updates[i]['text'];
+                let time = updates[i]['time'];
+                
+                mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                                ${text}
+                                <span class="badge badge-primary badge-pill">${time}</span>
+                            </li>`
+                $('#items').append(mystr);                                                   // could also have used '.innerHTML' of Javascript but instead, chose '.append' function of Jquery
+            }
+        }
+        else{ 
+            
+            mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                               Sorry! We are not able to fetch this order Id and E-mail. Make sure that you typed in the correct information.
+                            </li>`
+                $('#items').append(mystr); 
+
+        }
+
+        // Fill inthe order details
+        console.log("data  :  ", data)
+        cart = JSON.parse(data[1]);
+        console.log(cart);
+
+        for (item in cart) {
+    
+            let name = cart[item][1];
+            let qty = cart[item][0];
+            mystr = `<li class="list-group-item d-flex justify-content-between align-items-center">
+                            ${name}
+                            <span class="badge badge-primary badge-pill">${qty}</span>
+                        </li>`
+            $('#citems').append(mystr);                                                   // could also have used '.innerHTML' of Javascript but instead, chose '.append' function of Jquery
+        }
+
+
+
+    });
+    event.preventDefault();
+
+
+
+
+
+});
+
+
+
+</script>
+
+
+{% endblock %}

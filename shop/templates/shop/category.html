@@ -1,0 +1,53 @@
+{% extends 'shop/basic.html' %}
+
+{% block categoryactive %}active{% endblock categoryactive %}
+
+{% block title %}Category{% endblock title %}
+
+{% block css %}{% endblock css %}
+
+{% block body %}
+{% comment %} <div class="container mt-2">
+{% for product in cats %}
+<div class="row">
+  <div class="col">
+    <div class="list-group" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="/shop" role="tab" aria-controls="home">{{product}}</a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</div> {% endcomment %}
+
+
+
+
+
+<div class="container mt-2">
+{% for product in cats %}
+<div class="list-group">
+
+  <a href="/shop/category/{{product}}"><button type="button" class="list-group-item list-group-item-action">{{product}}</button></a>
+  
+</div>
+{% endfor %}
+</div>
+
+
+{% endblock body %}
+
+
+{% block js %}
+<script>
+
+if (localStorage.getItem('cart') == null) {
+               var cart = {};
+            } else {
+               cart = JSON.parse(localStorage.getItem('cart'));
+               document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+
+            }
+</script>
+
+{% endblock js %}

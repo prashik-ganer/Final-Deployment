@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <title>{% block title %} {% endblock title %}</title>
+    <script>
+      var user = '{{request.user}}'
+      console.log('USER: ',user)
+
+      // Very Important function to use post request with JavaScript
+      function getToken(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      const csrftoken = getToken('csrftoken');
+
+
+
+
+
+
+    </script>
+
+    <!-- {% load static %}
+        <link rel="stylesheet" href="{% static 'shop/basic.css' %}"> -->
+    <style>
+    body{
+    margin: 0;
+    padding: 0;
+    }
+
+    nav{
+      font-family: poppins;
+    }
+
+
+    /*.card{
+      width:18rem;
+      height: 29rem; 
+    }*/
+
+@media screen and (min-width: 600px) {
+  
+      .footer_mobile{
+        visibility:hidden;
+      }
+         
+    }
+
+@media screen and (max-width: 600px) {
+      body{
+        {% comment %} background-color: #E2F0F1; {% endcomment %}
+        
+      }
+   
+        
+    } 
+      {% block css %}
+      
+       {% endblock css %}
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style=" position: sticky; top: 0;  z-index: 3;">
+      <a class="navbar-brand" href="/shop"><b>SHOPHUNT</b></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+           <!--
+           <li class="nav-item {% block homeactive %}{% endblock homeactive %}">
+              <a class="nav-link" href="/shop">HOME</a>
+            </li>
+           --> 
+             
+          {% comment %} {% if request.user.is_staff %} {% endcomment %}
+          <li class="nav-item {% block categoryactive %}{% endblock categoryactive %}">
+            <a class="nav-link" href="/shop/category"><strong>CATEGORIES</strong></a>
+          </li>
+          <li class="nav-item {% block storesactive %}{% endblock storesactive %}">
+            <a class="nav-link" href="/shop/stores"><strong>STORES</strong></a>
+          </li>
+          <li class="nav-item {% block aboutactive %}{% endblock aboutactive %}">
+            <a class="nav-link" href="/shop/about"><strong>ABOUT US</strong></a>
+          </li>
+          <li class="nav-item {% block trackeractive %}{% endblock trackeractive %}">
+            <a class="nav-link" href="/shop/tracker"><strong>TRACKER</strong></a>
+          </li>
+          <li class="nav-item {% block contactactive %}{% endblock contactactive %}">
+            <a class="nav-link" href="/shop/contact"><strong>CONTACT US</strong></a>
+          </li>
+
+          {% comment %} {% endif %} {% endcomment %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2 text-primary" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <button type="button" class="btn btn-light mx-2 text-primary" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+        sagittis lacus vel augue laoreet rutrum faucibus.">
+          <b>Cart(<span id="cart" >0</span>)</b>
+        </button>
+      </div>
+
+       {% if user.is_authenticated %}
+          
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <b> Welcome {{request.user}} </b>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/accounts/account">Profile</a>
+                <a class="dropdown-item" href="http://127.0.0.1:8000/shop/logout">Log-out</a>
+              </div>
+            </li>
+          </ul>
+          
+          {% else %}
+          <!-- Button trigger Login modal -->
+            <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
+              <b>Log-in</b>
+            </button>
+          <!-- Button trigger SignUp modal -->
+            <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
+              <b>Sign-Up</b>
+            </button>
+         {% endif %} 
+        
+      
+
+
+
+    </nav>
+
+
+
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>Message :</strong> {{ message}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endfor %}
+
+
+<!-- SignUp Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalTitle">SIGN-UP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-family:poppins">
+       
+       
+        <form action="http://127.0.0.1:8000/shop/signup/" method="post">
+        {% csrf_token %}
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control bg-muted" id="fname" name="fname" placeholder="First Name" Required>
+            </div>
+            <div class="form-group col-6">
+              <label for="lname">Last Name</label>
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" Required>
+            </div>
+          </div>
+            
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username" Required>
+            </div>
+            <div class="form-group">
+              <label for="signupemail">Email Address</label>
+              <input type="email" class="form-control" id="signupemail" name="email" placeholder="Email" Required>
+            </div>
+            <div class="form-group">
+              <label for="signupemail">Contact Number</label>
+              <input type="email" class="form-control" id="signupemail" name="email" placeholder="Contact" Required>
+            </div>
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="pass1">Password</label>
+              <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose your password" Required>
+            </div>
+            <div class="form-group col-6">
+              <label for="pass2">Confirm Password</label>
+              <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm your password" Required>
+            </div>
+          </div>
+            
+
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalTitle">LOG-IN</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-family:poppins">
+       
+       
+        <form action="http://127.0.0.1:8000/shop/login/" method="post">
+          {% csrf_token %}
+            
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Username" Required>
+            </div>
+        
+            <div class="form-group">
+              <label for="pass">Password</label>
+              <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Password" Required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+    <!--                    MOBILE LAYOUT                   -->
+    <!--                    MOBILE LAYOUT                   -->
+
+
+
+
+    <!--               FOOTER                  -->
+
+    {% comment %} <div class=" d-flex btn-group vw-100 fixed-bottom footer_mobile"  role="group" aria-label="Basic example">
+
+        <a href="/shop/" class="btn btn-secondary mx-0 bg-danger">
+
+            <div class="col px-0">
+                <div class="row justify-content-center mx-auto ">
+                    <div class="col mx-0 px-0">
+                        <svg class="justify-content-center" width="2em" height="2em" viewBox="0 0 16 16"
+                            class="bi bi-house-door-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6.5 10.995V14.5a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5V11c0-.25-.25-.5-.5-.5H7c-.25 0-.5.25-.5.495z" />
+                            <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
+                        </svg>
+                    </div>
+                    <p style="font-size: 0.8em" class="my-0">HOME</p>
+                </div>
+            </div>
+
+        </a>
+
+        <a href="/shop/category" class="btn btn-secondary">
+            <div class="col px-0">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-grid-3x3-gap-fill"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V7zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-2zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-2z" />
+                        </svg>
+                    </div>
+                    <p style="font-size: 0.8em" class="my-auto">CATEGORIES</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="/shop/checkout" class="btn btn-secondary">
+            <svg width="2.5em" height="2.5em" viewBox="0 0 16 16" class="bi bi-shop" fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
+            </svg>
+        </a>
+
+        <a href="/shop/tracker" class="btn btn-secondary">
+            <div class="col px-0">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-list-check" fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" />
+                        </svg>
+                    </div>
+                    <p style="font-size: 0.8em" class="my-0">TRACKER</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="/shop/about" class="btn btn-secondary flex-fill ">
+
+            <div class="col px-0">
+                <div class="row justify-content-center">
+                    <div class="col">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-person-circle"
+                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+                            <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            <path fill-rule="evenodd"
+                                d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                        </svg>
+                    </div>
+                    <p style="font-size: 0.8em" class="my-0">DETAILS</p>
+                </div>
+            </div>
+        </a>
+
+
+    </div> {% endcomment %}
+
+
+
+
+  {% block body %} {% endblock body %}
+
+  
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+{% comment %}   
+      <script>
+    console.log('working');
+    
+    if(localStorage.getItem('cart')==null){
+      var cart={}
+    }
+    else{
+      cart = JSON.parse(localStorage.getItem('cart'));
+      document.getElementById('cart').innerHTML = Object.keys(cart).length;
+      console.log(cart);
+    }
+
+    $('.cart').click(function(){
+      console.log('clicked');
+      var idstr = this.id.toString();
+      console.log(idstr)
+
+      if (cart[idstr] != undefined) {
+      qty = cart[idstr] + 1;
+    } else {
+      cart[idstr] = 1;
+    }
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    });
+
+    $('#popcart').popover();
+    document.getElementById('popcart').setAttribute('data-content', '<h5>Cart for your items in cart</h5>');
+
+    
+    </script> {% endcomment %}
+
+ 
+  {% block js %} 
+  {% endblock %}
+
+
+
+  </body>
+
+
+
+
+</html>
+
+
+
+
+

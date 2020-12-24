@@ -1,0 +1,145 @@
+{% extends 'shop/basic.html' %}
+{% load static %}
+
+{% block css %}
+<style>
+    .message-alert {
+        border: 1px solid #5e7356;
+        background-color: #ddf0d5;
+        color: #5e7356;
+        padding: 10px;
+        border-radius: 3px;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .card {
+        width: 100%;
+        height: fit-content;
+    }
+
+    .totalOrders-box,
+    /* .ordersDelivered-box, */
+    .ordersPending-box {
+        background: rgb(243, 195, 39);
+    }
+
+
+
+
+</style>
+{% endblock css %}
+
+{% block body %}
+
+<br>
+<div class="row mx-1">
+    <div class="col-md-3">
+        <div class="card card-body bg-info">
+            <a href="{% url 'home' %}" class="btn btn-warning"> &#8592; Back to Profile</a>
+            <hr>
+            <h3 class="text-warning" style="text-align: center"><b>PROFILE</b></h3>
+            <hr>
+            <img src="{{request.user.customer.profile_pic.url}}" alt="" class="profile-pic">                
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input class="btn btn-primary" type="submit" name="Update Information">
+            </form>
+        </div>
+<!--  not own  -->
+        <br>
+        <div class="row">
+        <div class="col">
+            <div class="col-md">
+                <div class="card totalOrders-box text-center text-white  mb-3" id="total-orders">
+                    <div class="card-header">
+                        <h5 class="card-title">Total Orders</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{total_orders}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="col-md">
+                <div class="card ordersDelivered-box text-center text-white bg-primary mb-3" id="orders-delivered">
+                    <div class="card-header">
+                        <h5 class="card-title">Orders Delivered</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{delivered}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="col-md">
+                <div class="ordersPending-box card text-center text-white  mb-3" id="orders-pending">
+                    <div class="card-header">
+                        <h5 class="card-title">Orders Pending</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">{{pending}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md">
+                <div class="card card-body">
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <th>Order_id</th>
+                                <th>Product</th>
+                                <th>Date & Time Orderd</th>
+                                <th>Status</th>
+                                <th>Order Pin</th>
+                            </tr>
+                            {% for order in orders %}
+                                <tr>
+                                    <td>{{order.order_id}}</td>
+                                    <td>{{order.product.category}}</td>
+                                    <td>{{order.date_created}}</td>
+                                    <td>{{order.status}}</td>
+							        <td><a class="btn btn-sm btn-info" href="/shop/qrcode/id={{order.order_id}}"><b>View</b></a></td>
+
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <div class="container-fluid">
+        
+
+
+        <!--
+        <div class="message-alert">
+            <p>NOTE: To view source code & tutorial videos visit "Source Code/Tutorials" in the navigation bar above.</p>
+        </div>
+        -->
+        
+    </div>
+
+
+{% endblock body %}

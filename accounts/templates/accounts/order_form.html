@@ -1,0 +1,44 @@
+{% extends 'accounts/basic.html' %}
+{% load static %}
+
+{% block css %}
+ .card {
+    width: 100%;
+    height: fit-content;
+    }
+
+{% endblock css %}
+
+{% block body %}
+
+<div class="container mt-4 d-flex justify-content-center">
+<br>
+<div class="row">
+    <col-md-6>
+        <div class="card card-body">
+           <form action="" method="POST">
+            {% csrf_token %}
+            {{form}}
+                <input type="submit" name="submit">
+            </form>
+
+        </div>
+    </col-md-6>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}

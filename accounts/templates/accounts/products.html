@@ -1,0 +1,72 @@
+{% extends 'accounts/basic.html' %}
+
+{% block title %}Products{% endblock title %}
+
+
+
+{% block css %}
+.card {
+    width: 100%;
+    height: fit-content;
+}
+
+
+{% endblock css %}
+
+{% block body %}
+
+
+
+<div class="container-fluid">
+	
+
+		<br>
+
+		<div class="row">
+			<div class="col-md">
+				<div class="card card-body">
+					<h5>Products</h5>
+				</div>
+				<div class="card card-body">
+					<table class="table">
+						<tbody>
+                        <tr>
+							<th>Product</th>
+							<th>Category</th>
+							<th>Price</th>
+						</tr>
+                        </tr>
+                        {% for i in products %}
+                        <tr>
+                        <td>{{i.name}}</td>
+                        <td>{{i.category}}</td>
+                        <td>{{i.price}}</td>
+                        </tr>
+                        {% endfor %}
+						
+							
+						
+						
+					</tbody>
+                    </table>
+				</div>
+			</div>
+			
+		</div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}
+
+{% block js %}
+{% endblock js %}
