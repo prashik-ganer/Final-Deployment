@@ -133,7 +133,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/accounts/account">Profile</a>
-                <a class="dropdown-item" href="http://127.0.0.1:8000/shop/logout">Log-out</a>
+                <a class="dropdown-item" href="/shop/logout">Log-out</a>
               </div>
             </li>
           </ul>
@@ -180,7 +180,7 @@
       <div class="modal-body" style="font-family:poppins">
        
        
-        <form action="http://127.0.0.1:8000/shop/signup/" method="post">
+        <form action="/shop/signup/" method="post">
         {% csrf_token %}
           <div class="row">
             <div class="form-group col-6">
@@ -203,7 +203,7 @@
             </div>
             <div class="form-group">
               <label for="signupemail">Contact Number</label>
-              <input type="email" class="form-control" id="signupemail" name="email" placeholder="Contact" Required>
+              <input type="Number" class="form-control" id="signupemail" name="email" placeholder="Contact" Required>
             </div>
           <div class="row">
             <div class="form-group col-6">
@@ -239,7 +239,7 @@
       <div class="modal-body" style="font-family:poppins">
        
        
-        <form action="http://127.0.0.1:8000/shop/login/" method="post">
+        <form action="/shop/login/" method="post">
           {% csrf_token %}
             
             <div class="form-group">
