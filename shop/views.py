@@ -55,19 +55,45 @@ def index(request):
     empty_cart = {""}
     if request.user.is_authenticated:
         customer = request.user.customer
-        customer_object = Cart.objects.get(customer=customer)
-        print(customer_object)
-        customer_cart_item = customer_object.cart_items
-        print("python object : ", customer_cart_item)
-        cart = customer_cart_item.replace("\'", "\"")
-        print("replaced : ", cart)
+        # cart, created = Cart.objects.update_or_create(
+        # customer=customer, defaults={"cart_items": data}
+        # )
+        cart_json, created = Cart.objects.get_or_create(customer=customer)
+        
+        if created:
+            cart_json.cart_items = '{}'
+            cart = cart_json.cart_items
+            user_cart, created = Cart.objects.get_or_create(customer=customer, cart_items=cart)
+            params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart': cart}
+            cart_json.delete()
+            return render(request, 'shop/index.html', params1)
+
+            # means you have created a new person
+        else:
+            # person just refers to the existing one
+            customer_cart_item = cart_json.cart_items
+            print("python object : ", customer_cart_item)
+            cart = customer_cart_item.replace("\'", "\"")
+            print("replaced : ", cart)
+            user_cart, created = Cart.objects.get_or_create(customer=customer, cart_items=customer_cart_item)
+            params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart': cart}
+            cart_json.delete()
+            return render(request, 'shop/index.html', params1)
+
+        # customer_object = Cart.objects.get(customer=customer)
+        print(cart_json)
+        # cart_json.cart_items = "{ }"
+
+        # customer_cart_item = cart_json.cart_items
+        # print("python object : ", customer_cart_item)
+        # cart = customer_cart_item.replace("\'", "\"")
+        # print("replaced : ", cart)
+
         # cart = json.dumps(customer_cart_item)
         # print("two : ", cart)
 
 
-        user_cart, created = Cart.objects.get_or_create(customer=customer, cart_items=customer_cart_item)
-        params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart':cart}
-        return render(request, 'shop/index.html', params1)
+        
     params = {'allProds': allProds}
     # else:
     #     params = {'allProds': allProds}
