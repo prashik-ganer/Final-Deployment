@@ -13,7 +13,7 @@ class Product(models.Model):
     price = models.IntegerField(default=0)
     desc = models.CharField(max_length=1000)
     pub_date = models.DateField()
-    image = models.ImageField(upload_to="shop/images", default="")
+    image = models.ImageField(upload_to="shop/images", default="", null=True, blank=True)
     inStock = models.BooleanField()
 
     def __str__(self):
