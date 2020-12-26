@@ -164,6 +164,10 @@ def checkout(request):
             orderBtn = request.POST.get('removepunc', 'off')
             pickupBtn = request.POST.get('removepunc', 'off')
             items_json = request.POST.get('itemsJson', '')
+            pickup = request.POST.get('pickup', '')
+            print("pickup : ", pickup)
+            delivery = request.POST.get('delivery', '')
+            print("delivery : ", delivery)
             address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
             zip_code = request.POST.get('zip_code', '')
             name = request.user.customer

@@ -73,6 +73,8 @@
    
         
     } 
+
+
     .site-footer
 {
   background-color:#26272b;
@@ -414,6 +416,9 @@
               <label for="pass">Password</label>
               <input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder="Password" Required>
             </div>
+            <div class="div">
+              <input type="checkbox" onclick="myFunction()" class="mx-3">Show Password
+            </div>
             
             <button type="submit" class="btn btn-primary">Submit</button>
         
@@ -531,6 +536,17 @@
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script>
+  function myFunction() {
+  var x = document.getElementById("loginpassword");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+  }
+  </script>
+
 {% comment %}   
       <script>
     console.log('working');
