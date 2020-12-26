@@ -14,7 +14,7 @@
     <div class="card d-inline"> 
         <img src="/media/{{i.image}}" class="card-img-top" alt="...">
         <div class="card-body p-3">
-        <a href="http://127.0.0.1:8000/shop/products/prod={{i.id}}"><h5 class="card-title" id="namepr{{i.id}}" style="font-size: medium;">{{i.product_name}}</h5></a>
+        <a href="/shop/products/prod={{i.id}}"><h5 class="card-title" id="namepr{{i.id}}" style="font-size: medium;">{{i.product_name}}</h5></a>
         <p class="card-text my-1" style="font-size: small;">{{i.desc| slice:"0:150"}}...</p>
         <p class="card-text my-1" style="font-size: small;"><b>Price : </b><span  id="pricepr{{i.id}}">{{i.price}}</span></p>
         <p class="card-text"><small class="text-muted">Publication Date: {{i.pub_date}}</small></p>
@@ -30,8 +30,11 @@
     </div>
 
 {% endfor %}
+
 </div>
 
+
+{% include 'shop/footer.html' %}
 
 
 {% endblock body %}
@@ -134,12 +137,16 @@ if (localStorage.getItem('cart') == null) {
 
     sum = 0;
     console.log(cart)
+    //for (var i; i<cart.length; i++){
     for (var item in cart) {
         console.log("item : ", item)
         console.log("sum before", sum)
         sum = sum + cart[item][0];
       console.log("sum later", sum)
-      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+      
+      if (item == 'div'+item){
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+      }
     }
      localStorage.setItem('cart', JSON.stringify(cart));
      localStorage.setItem('database_cart', JSON.stringify(database_cart));
