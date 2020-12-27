@@ -6,9 +6,27 @@
 
 {% block css %}
 <style>
-.card-body {
-    
-}
+
+.message-alert{
+		border:1px solid #5e7356;
+		background-color: #ddf0d5;
+		color:#5e7356;
+		padding:10px;
+		border-radius: 3px;
+		width: 90%;
+		margin:0 auto;
+		margin-top: 20px;
+		text-align: center;
+	}
+    .card {
+    width: 100%;
+    height: fit-content;
+    }
+    .totalOrders-box, .ordersDelivered-box, .ordersPending-box{
+        background: dodgerblue;
+    }
+
+
 
 
 </style>
@@ -41,7 +59,51 @@
 {% endfor %}
 </div>
 
+<div class="container row mt-3 mx-auto">
+      <div class="row">
+        <div class="col-md">
+          <div class="card card-body">
+            <table class="table table-sm">
+              <tbody>
+              <h3><b>Products</h3>
+                <tr>
+                  <th>Customer</th>
+                              <th>OrderId</th>
+                              <th>Products</th>
+                              <!-- <th>Items_json</th> -->
+                              <th>Date Orderd</th> 
+                              <th>Amount</th>
+                              <th>Mode</th>
+                              <th>Status</th>
+                              {% comment %} <th>Tracker</th> {% endcomment %}
+                              <th>Update Status</th>
+                </tr>
+                          {% for order_item in products %}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>
+                  <ul class="list-group " id="items_json{{order_item.order_id}}" >
+                    <!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
+                    
+                  </ul></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td> 
+                  {% comment %} <td><a class="btn btn-sm btn-info" href="{% url 'sellerTracker' order_item.order_id %}">Tracker</a></td> {% endcomment %}
+                  {% comment %} <td><a class="btn btn-sm btn-info" href="{% url 'updateStatus' order_item.order_id %}"><b>Update Status</b></a></td> {% endcomment %}
+                  <!-- {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'update_order' order.id %}">Delete</a></td> {% endcomment %} -->
+                </tr>
+                  
+                  {% endfor %}
+                </tbody>
+                  </table>
+          </div>
+        </div>
+      </div>
 
+</div>
 
 {% endblock body %}
 

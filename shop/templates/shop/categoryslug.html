@@ -20,7 +20,7 @@
         <p class="card-text"><small class="text-muted">Publication Date: {{i.pub_date}}</small></p>
         <div class="div mx-auto">
             <span id="divpr{{i.id}}" class="divpr">
-            <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
+            <button id="pr{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
             </span>
             <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}"
                 class="btn btn-primary cart">QuickView</button></a>
@@ -127,7 +127,8 @@ if (localStorage.getItem('cart') == null) {
     }
     prime(); 
 
-
+      document.getElementById('div' + idstr).innerHTML = "<button id='minus" + idstr + "' class='btn btn-danger minus'>-</button> <span id='val" + idstr + "''>" + cart[idstr][0] + "</span> <button id='plus" + idstr + "' class='btn btn-danger plus'> + </button>";
+    
    updateCart(cart); 
 
   });
@@ -139,14 +140,17 @@ if (localStorage.getItem('cart') == null) {
     console.log(cart)
     //for (var i; i<cart.length; i++){
     for (var item in cart) {
+        //console.log("idstr next  :::::", idstr)
         console.log("item : ", item)
         console.log("sum before", sum)
         sum = sum + cart[item][0];
       console.log("sum later", sum)
-      
-      if (item == 'div'+item){
-        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
-      }
+
+      {% comment %} document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>"; {% endcomment %}
+
+      //if (item == 'div'+item){
+      //  document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+      //}
     }
      localStorage.setItem('cart', JSON.stringify(cart));
      localStorage.setItem('database_cart', JSON.stringify(database_cart));
@@ -169,7 +173,7 @@ if (localStorage.getItem('cart') == null) {
     cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
 
     if (cart['pr' + a][0] == 0) {
-      document.getElementById('divpr' + a).innerHTML = '<button id="pr' + a + '" class="btn btn-primary cart">Add to Cart</button>'
+      document.getElementById('divpr' + a).innerHTML = '<button id="pr' + a + '" class="btn btn-danger cart">Add to Cart</button>'
       delete cart['pr' + a];
     }
     
