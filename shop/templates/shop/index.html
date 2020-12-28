@@ -97,6 +97,25 @@ height: 60%;
 }
 
 
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 33.33%;
+  padding: 5px;
+}
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 500px) {
+  .column {
+    width: 100%;
+  }
+}
+
+
+
 
 {% endblock %}
 
@@ -104,6 +123,25 @@ height: 60%;
 {% block body %}
 
 {% load static %}
+
+<div class="container">
+
+<div class="row">
+  <div class="column">
+    <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Snow" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Forest" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Mountains" style="width:100%">
+  </div>
+</div>
+</div>
+
+
+
+
 
 <div class="container">
 
@@ -165,10 +203,10 @@ height: 60%;
                 <!-- Display Price on HomePage -->
                 <div class="div mx-auto">
                   <span id="divpr{{i.id}}" class="divpr">
-                    <button id="pr{{i.id}}" class="btn btn-danger cart">Add To Cart</button>
+                    <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</button>
                   </span>
-                  <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}"
-                      class="btn btn-primary cart">QuickView</button></a>
+                  {% comment %} <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}"
+                      class="btn btn-primary cart">QuickView</button></a> {% endcomment %}
                 </div>
 
               </div>

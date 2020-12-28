@@ -65,32 +65,32 @@
           <div class="card card-body">
             <table class="table table-sm">
               <tbody>
-              <h3><b>Products</h3>
+                <h3><b>Products</h3>
+                  <tr>
+                    <th>Product Name</th>
+                                <th>Product ID</th>
+                                <th>Type</th>
+                                <!-- <th>Items_json</th> -->
+                                <th>Date Orderd</th> 
+                                <th>Amount</th>
+                                <th>Mode</th>
+                                <th>Status</th>
+                                {% comment %} <th>Tracker</th> {% endcomment %}
+                                <th>Update Status</th>
+                    </tr>
+                          {% for product in products %}
                 <tr>
-                  <th>Customer</th>
-                              <th>OrderId</th>
-                              <th>Products</th>
-                              <!-- <th>Items_json</th> -->
-                              <th>Date Orderd</th> 
-                              <th>Amount</th>
-                              <th>Mode</th>
-                              <th>Status</th>
-                              {% comment %} <th>Tracker</th> {% endcomment %}
-                              <th>Update Status</th>
-                </tr>
-                          {% for order_item in products %}
-                <tr>
+                  <td>{{product}}</td>
+                  <td>{{product.id}}</td>
+                  <td>{{product.category}}</td>
                   <td></td>
                   <td></td>
+                  <td></td> 
                   <td>
                   <ul class="list-group " id="items_json{{order_item.order_id}}" >
                     <!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
                     
                   </ul></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td> 
                   {% comment %} <td><a class="btn btn-sm btn-info" href="{% url 'sellerTracker' order_item.order_id %}">Tracker</a></td> {% endcomment %}
                   {% comment %} <td><a class="btn btn-sm btn-info" href="{% url 'updateStatus' order_item.order_id %}"><b>Update Status</b></a></td> {% endcomment %}
                   <!-- {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'update_order' order.id %}">Delete</a></td> {% endcomment %} -->
@@ -98,7 +98,7 @@
                   
                   {% endfor %}
                 </tbody>
-                  </table>
+            </table>
           </div>
         </div>
       </div>
@@ -108,4 +108,6 @@
 {% endblock body %}
 
 
-{% block js %}{% endblock js %}
+{% block js %}
+
+{% endblock js %}
