@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from django.contrib.messages import constants as messages
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,8 +47,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django_filters',
-    'cloudinary',
-    'django-cloudinary-storage',
+    # 'cloudinary_storage',
+    # 'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -140,8 +144,10 @@ STATICFILES_DIRS = [
 ]
 
 # Managing Media
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Message Tags
 MESSAGE_TAGS = {
@@ -151,11 +157,12 @@ MESSAGE_TAGS = {
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dbvh7sfop',
-    'API_KEY': '773496946691131',
-    'API_SECRET': 'JZ8lR-OYtXZAOnhkCsnsEYoh70g'
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'dbvh7sfop',
+#     'API_KEY': '773496946691131',
+#     'API_SECRET': 'JZ8lR-OYtXZAOnhkCsnsEYoh70g'
+# }
+
 
 
 
