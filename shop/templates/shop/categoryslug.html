@@ -8,7 +8,7 @@
 }
 
 .column {
-  flex: 33.33%;
+  flex: 25%;
   padding: 5px;
 }
 
@@ -35,7 +35,7 @@
 {% for i in separateProds %}
     <div class=" card-deck d-flex flex-column my-2 column">
       <div class="card d-inline"> 
-            <img src="/media/{{i.image}}" class="card-img-top" alt="...">
+            <img src="{{i.image.url}}" class="card-img-top" alt="...">
             <div class="card-body p-3">
               <a href="/shop/products/prod={{i.id}}"><h5 class="card-title" id="namepr{{i.id}}" style="font-size: medium;">{{i.product_name}}</h5></a>
               <p class="card-text my-1" style="font-size: small;">{{i.desc| slice:"0:150"}}...</p>
