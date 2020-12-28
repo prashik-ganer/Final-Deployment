@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'django_filters',
+    'cloudinary',
+    'django-cloudinary-storage',
 ]
 
 MIDDLEWARE = [
@@ -149,6 +151,11 @@ MESSAGE_TAGS = {
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dbvh7sfop',
+    'API_KEY': '773496946691131',
+    'API_SECRET': 'JZ8lR-OYtXZAOnhkCsnsEYoh70g'
+}
 
 
 
