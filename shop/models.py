@@ -7,7 +7,7 @@ from accounts.models import Customer, Seller
 class Product(models.Model):
     seller = models.ManyToManyField(Seller)
     product_id = models.AutoField
-    product_name = models.CharField(max_length=200)
+    product_name = models.CharField(max_length=500)
     category = models.CharField(max_length=50, default="")
     subcategory = models.CharField(max_length=50, default="")
     price = models.IntegerField(default=0)
