@@ -27,16 +27,29 @@
     </div>
 
     <div class="container"> 
+    <div class="accordion " id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="flush-collapseOne">
+              <strong>PICKUP</strong>
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+              <strong>DELIVERY</strong>
+            </button>
+          </h2>
+          <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+          </div>
+        </div>
+      </div>
     <form action="/radio" method='get'>
-          {% comment %} <div class="custom-control custom-switch">
-            <input type="checkbox" name="Pickup" class="custom-control-input" id="customSwitch1">
-            <label class="custom-control-label" for="customSwitch1">PickUP</label>
-          </div>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" name="Delivery" class="custom-control-input" id="customSwitch2">
-            <label class="custom-control-label" for="customSwitch2">Delivery</label>
-          </div>
-              <input type="checkbox" name="removepunc" id="checkbox"> {% endcomment %}
             <div class="btn-group btn-group-toggle d-inline" data-toggle="buttons">
               <label id="pickup" class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" aria-controls="collapseExample">
                 <input type="radio" name="pickup" id="option1" data-toggle="collapse" autocomplete="off" href="#collapseExample1" aria-controls="collapseExample">  PICKUP
@@ -44,9 +57,7 @@
               <label order="order" class="btn btn-primary" data-toggle="collapse" href="#collapseExample2" aria-controls="collapseExample">
                 <input type="radio" name="Delivery" id="option3"  autocomplete="off" href="#collapseExample2" aria-controls="collapseExample"> ORDER
               </label>
-          </div> 
-          {% comment %}     <button class="btn btn-primary" type="submit">Submit</button> {% endcomment %}
-          
+          </div>  
     </form>
     </div>
 
@@ -263,6 +274,8 @@
                       ${name}
                       <span class="badge badge-primary badge-pill">${qty}</span>
                   </li>`
+
+                  
       localStorage.setItem('totalPrice', totalPrice);
       $('#items').append(mystr);                                                   // could also have used '.innerHTML' of Javascript but instead, chose '.append' function of Jquery
 

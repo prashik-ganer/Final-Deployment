@@ -45,12 +45,13 @@
             <img src="{{request.user.customer.profile_pic.url}}" alt="" class="profile-pic">                
         </div>
     </div>
+    {% load crispy_forms_tags %}
     <div class="col-md-9">
         <div class="card card-body">
         {% load cloudinary %}
             <form method="POST" action="" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{form.as_p}}
+                {{form | crispy}}
                 <input class="btn btn-primary" type="submit" name="Update Information">
             </form>
         </div>
