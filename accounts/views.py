@@ -10,6 +10,9 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 # Extra implemented
 from shop.models import Orders, OrderUpdate, Product, Cart
 from .filters import OrderFilter
+
+
+from cloudinary.forms import cl_init_js_callbacks
 # Create your views here.
 
 def registrationPage(request):
