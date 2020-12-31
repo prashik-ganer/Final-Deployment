@@ -28,7 +28,7 @@
 
     <div class="container"> 
     <form action="/radio" method='get'>
-          <div class="custom-control custom-switch">
+          {% comment %} <div class="custom-control custom-switch">
             <input type="checkbox" name="Pickup" class="custom-control-input" id="customSwitch1">
             <label class="custom-control-label" for="customSwitch1">PickUP</label>
           </div>
@@ -36,7 +36,7 @@
             <input type="checkbox" name="Delivery" class="custom-control-input" id="customSwitch2">
             <label class="custom-control-label" for="customSwitch2">Delivery</label>
           </div>
-              <input type="checkbox" name="removepunc" id="checkbox">
+              <input type="checkbox" name="removepunc" id="checkbox"> {% endcomment %}
             <div class="btn-group btn-group-toggle d-inline" data-toggle="buttons">
               <label id="pickup" class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" aria-controls="collapseExample">
                 <input type="radio" name="pickup" id="option1" data-toggle="collapse" autocomplete="off" href="#collapseExample1" aria-controls="collapseExample">  PICKUP
@@ -45,7 +45,7 @@
                 <input type="radio" name="Delivery" id="option3"  autocomplete="off" href="#collapseExample2" aria-controls="collapseExample"> ORDER
               </label>
           </div> 
-          <button class="btn btn-primary" type="submit">Submit</button>
+          {% comment %}     <button class="btn btn-primary" type="submit">Submit</button> {% endcomment %}
           
     </form>
     </div>
@@ -70,7 +70,8 @@
           {% csrf_token %}
           <input type="hidden" name="itemsJson" id="itemsJson1">
           <input type="hidden" name="totalPrice_database" id="totalPrice_database1">
-          <input type="hidden" name="pickup" id="pickup">
+          <input type="hidden" id="pickup" name="mode" value="Pickup">
+          <!--<input type="hidden" name="pickup" id="pickup">-->
           
           {% if user.is_authenticated %}
         
@@ -127,7 +128,7 @@
             {% csrf_token %}
             <input type="hidden" name="itemsJson" id="itemsJson2">
             <input type="hidden" name="totalPrice_database" id="totalPrice_database2">
-            <input type="hidden" name="delivery" id="delivery">
+            <input type="hidden" name="mode" id="delivery" value="Delivery">
 
             
             {% if user.is_authenticated %}

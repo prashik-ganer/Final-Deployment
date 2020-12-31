@@ -2,16 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 
 from accounts.models import Customer, Seller
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 class Product(models.Model):
     seller = models.ManyToManyField(Seller)
     product_id = models.AutoField
-    product_name = models.CharField(max_length=500)
+    product_name = models.CharField(max_length=255)
     category = models.CharField(max_length=50, default="")
     subcategory = models.CharField(max_length=50, default="")
     price = models.IntegerField(default=0)
-    desc = models.CharField(max_length=1000)
+    desc = models.CharField(max_length=500)
     pub_date = models.DateField()
     image = models.ImageField(upload_to="shop/images", default="", null=True, blank=True)
     inStock = models.BooleanField()
@@ -53,7 +54,8 @@ class Orders(models.Model):
     phone= models.IntegerField(default=0)
     status = models.CharField(max_length=200, null=True, blank=True, choices=STATUS, default="Pending")
     mode = models.CharField(max_length=200, null=True, blank=True, choices=MODE)
-    order_qr = models.ImageField(default="default_profile.png", null=True, blank=True)
+    # order_qr = CloudinaryField('qrcode',default="default_profile.png")
+
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
 

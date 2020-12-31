@@ -126,7 +126,7 @@ height: 60%;
 
 <div class="container">
 
-<div class="row">
+{% comment %} <div class="row">
   <div class="column">
     <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Snow" style="width:100%">
   </div>
@@ -137,7 +137,7 @@ height: 60%;
     <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Mountains" style="width:100%">
   </div>
 </div>
-</div>
+</div> {% endcomment %}
 
 
 
@@ -201,12 +201,14 @@ height: 60%;
                 </div>
 
                 <!-- Display Price on HomePage -->
-                <div class="div mx-auto">
+                <div class="div d-flex">
                   <span id="divpr{{i.id}}" class="divpr">
                     <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</button>
                   </span>
-                  {% comment %} <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}"
-                      class="btn btn-primary cart">QuickView</button></a> {% endcomment %}
+                  <span  >
+                <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">QuickView</button></a>
+                   
+                  </span>
                 </div>
 
               </div>

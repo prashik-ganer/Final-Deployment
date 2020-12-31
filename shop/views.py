@@ -164,10 +164,10 @@ def checkout(request):
             orderBtn = request.POST.get('removepunc', 'off')
             pickupBtn = request.POST.get('removepunc', 'off')
             items_json = request.POST.get('itemsJson', '')
-            pickup = request.POST.get('pickup', '')
-            print("pickup : ", pickup)
-            delivery = request.POST.get('delivery', '')
-            print("delivery : ", delivery)
+            mode = request.POST.get('mode', '')
+            # print("pickup : ", pickup)
+            # delivery = request.POST.get('delivery', '')
+            # print("delivery : ", delivery)
             address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
             zip_code = request.POST.get('zip_code', '')
             name = request.user.customer
@@ -176,7 +176,7 @@ def checkout(request):
             phone = request.POST.get('inputPhone')
             print("amount : ", amount)
             print("amount : ", type(amount))
-            order = Orders(customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code,)
+            order = Orders(customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
             order.save()
 
             update = OrderUpdate(customer=name, order_id=order.order_id, update_desc="The order has been placed")
@@ -207,7 +207,7 @@ def checkout(request):
             image_name = id
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
             # ---------------------------------------------------------------------------------------------------
-            print("items_json : ", items_json)
+            print("imtems_json : ", items_json)
 
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})                    # 'thank' --> new parameter, : thank --> already declared variable
         else:
@@ -218,8 +218,10 @@ def checkout(request):
             phone = request.POST.get('inputPhone')
             address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
             zip_code = request.POST.get('zip_code', '')
+            mode = request.POST.get('mode', '')
+
             
-            order = Orders(items_json=items_json, amount=amount , name=name, email=email, phone=phone, address=address, zip_code=zip_code)
+            order = Orders(items_json=items_json, amount=amount , name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
             order.save()
 
             update = OrderUpdate(order_id=order.order_id, update_desc="The order has been placed")
