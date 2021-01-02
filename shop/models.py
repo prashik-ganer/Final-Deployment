@@ -68,7 +68,7 @@ class OrderUpdate(models.Model):
     seller = models.ForeignKey(Seller, null=True, blank=True, on_delete=models.SET_NULL)
     customer = models.ForeignKey(Customer, null=True, blank=True, on_delete=models.SET_NULL)
     update_id = models.AutoField(primary_key=True)
-    order_id = models.IntegerField(default="")
+    order_id = models.IntegerField(default=0)
     update_desc = models.CharField(max_length=5000)
     timestamp = models.DateField(auto_now_add=True)
 
@@ -91,3 +91,16 @@ class Customer_QR(models.Model):
 
     def __str__(self):
         return str(self.customer.name)
+
+class SellerProductStock(models.Model):
+    seller_pc = models.ForeignKey(Seller, null=True, on_delete=models.SET_NULL)
+    product_pc = models.ForeignKey(Product, null=True, on_delete=models.SET_NULL)
+    stock_count = models.IntegerField(default=0)
+
+
+    def __str__(self):
+        return str(self.seller_pc) + " - " + (self.product_pc.product_name)
+    # @property
+    # def seller_products(self, seller):
+    #     products_list = Product.objects.filter(seller=seller)
+    #     return products_list

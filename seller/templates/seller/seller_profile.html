@@ -117,11 +117,11 @@
 	<div class="accordion" id="accordionExample">
 		<div class="accordion-item">
 			<h2 class="accordion-header" id="headingOne">
-			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 				<b>SEARCH</b>
 			</button>
 			</h2>
-			<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+			<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 			<div class="accordion-body">
 				<div class="card card-body">
 					{% load crispy_forms_tags %}
@@ -146,24 +146,27 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<table class="table table-sm">
+			<table class="table table-sm table-striped">
+			<div class="accordian-body">
+				<div class="card card-body">
+				<h3><b>ORDERS</b></h3>
+
+			</div>
+			</div>
+				<tr  class="bg-info">
+					<th class="bg-info" data-colname="name" data-order="desc">Customer</th>
+					<th data-colname="orderId" data-order="desc">OrderId</th>
+					<th data-colname="products" data-order="desc">Products</th>
+					<th data-colname="dateOrdered" data-order="desc">Date Orderd</th>
+					<th data-colname="amount" data-order="desc">Amount</th>
+					<th data-colname="mode" data-order="desc">Mode</th>
+					<th data-colname="status" data-order="desc">Status</th>
+					<th data-colname="updateStatus" data-order="desc">Update Status</th>
+				</tr>
 				<tbody>
-				<h3><b>ORDERS</h3>
-                    <tr>
-						<th>Customer</th>
-                        <th>OrderId</th>
-                        <th>Products</th>
-                        <!-- <th>Items_json</th> -->
-                        <th>Date Orderd</th> 
-                        <th>Amount</th>
-                        <th>Mode</th>
-                        <th>Status</th>
-                        {% comment %} <th>Tracker</th> {% endcomment %}
-                        <th>Update Status</th>
-					</tr>
                     {% for order_item in order %}
 					<tr>
-						<td>{{order_item.name}}</td>
+						<td><b>{{order_item.name}}</b></td>
 						<td>{{order_item.order_id}}</td>
 						<td>
 						<ul class="list-group " id="items_json{{order_item.order_id}}" >
@@ -185,6 +188,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 

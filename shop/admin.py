@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from . models import Product, Contact, Orders, OrderUpdate, Cart, Customer_QR
+from . models import Product, Contact, Orders, OrderUpdate, Cart, Customer_QR, SellerProductStock
 from django.contrib.admin.models import LogEntry
 
 admin.site.register(Product)
@@ -10,6 +10,7 @@ admin.site.register(Orders)
 admin.site.register(OrderUpdate)
 admin.site.register(Cart)
 admin.site.register(Customer_QR)
+admin.site.register(SellerProductStock)
 
 
 @admin.register(LogEntry)

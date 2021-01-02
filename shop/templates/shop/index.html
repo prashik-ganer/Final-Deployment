@@ -154,13 +154,13 @@ height: 60%;
   <!--Slideshow starts here -->
   {% for product, range, nSlides in allProds %}
   
-  <nav aria-label="breadcrumb mt-5">
-    <ol class="breadcrumb p-1 mb-0 ">
-      <li class="breadcrumb-item active  mx-auto" aria-current="page">
-        <h4><b> {{product.0.category}} </b></h4>
+  <div aria-label="breadcrumb mt-5 ">
+    <ol class="breadcrumb p-1 mb-0 border">
+      <li class="breadcrumb-item active  p-2 mr-auto text-uppercase" aria-current="page">
+        <h4> {{product.0.category}} </h4>
       </li>
     </ol>
-  </nav>
+  </div>
 
   <div class="row d-flex flex-row">
     <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel" data-interval="false">
@@ -179,7 +179,7 @@ height: 60%;
 
 
           <!-- Important Line, Foundation for all -->
-          <div class="col-xs-3 col-sm-3 col-md-3 mx-3 my-2" style="width:14.5rem;">
+          <div class="col-xs-3 col-sm-3 col-md-3 my-2 px-2" style="width:fit-content;">
 
             <div class="card align-items-center mx-auto pt-2">
 
@@ -219,7 +219,7 @@ height: 60%;
 
           {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
         </div>
-        <div class="carousel-item" style="width:fit-content;">
+        <div class="carousel-item px-2" style="width:fit-content;">
         
           {% endif %}
           {% endfor %}
