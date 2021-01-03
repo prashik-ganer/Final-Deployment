@@ -54,13 +54,14 @@ class Orders(models.Model):
     phone= models.IntegerField(default=0)
     status = models.CharField(max_length=200, null=True, blank=True, choices=STATUS, default="Pending")
     mode = models.CharField(max_length=200, null=True, blank=True, choices=MODE)
-    # order_qr = CloudinaryField('qrcode',default="default_profile.png")
+    # order_qr = CloudinaryField('qrcode', null=True, blank=True)
+    order_qr = models.ImageField(upload_to="shop/order_qr", default="", null=True, blank=True)
 
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
 
     def __str__(self):
-        return "Order from : " + self.name
+        return "Order from : " + self.name + " - " + self.mode
     
 
 

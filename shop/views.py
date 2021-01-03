@@ -15,6 +15,9 @@ from accounts.models import Customer, Seller
 
 from django.http import JsonResponse
 import numpy
+
+import cloudinary
+from seller.forms import OrderQR
 # import cv2
 # from pyzbar.pyzbar import decode
     
@@ -110,9 +113,10 @@ def index(request):
 
 
 
-
-
 def about(request):
+    cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+    if request.method=='POST':
+        cloudinary.uploader.upload("https://res.cloudinary.com/dbvh7sfop/image/upload/v1609251595/media/shop/images/tata-salt_nmjnpv.png")
     return render(request, 'shop/about.html')
 
 def contact(request):
@@ -201,11 +205,16 @@ def checkout(request):
             sample = sample.replace("\'","\"")
             file1 = open('myfile.txt','a')
             file1.write(sample)
-            file1.write("\n")         
+            file1.write("\n")  
+
             # print("sample :", string_sample)
             big_code = pyqrcode.create(sample, error='L', version=15, mode='binary')
             image_name = id
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
+            
+            qr_photo = Orders.objects.get(order_id=id)
+            qr_photo.order_qr = image_qrcode
+
             # ---------------------------------------------------------------------------------------------------
             print("imtems_json : ", items_json)
 
@@ -234,10 +243,13 @@ def checkout(request):
             sample = sample.replace("\'","\"")
             file1 = open('myfile.txt','a')
             file1.write(sample)         
-            file1.write("\n")         
+            file1.write("\n")        
+            airtable.insert({'Order id': sample})   
             big_code = pyqrcode.create(sample, error='L', version=15, mode='binary')
             image_name = id
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
+            qr_photo = Orders.objects.get(order_id=id)
+            qr_photo.order_qr = image_qrcode
             # ---------------------------------------------------------------------------------------------------
             
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})      

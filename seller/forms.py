@@ -19,3 +19,10 @@ class OrderUpdatesForm(ModelForm):
     class Meta:
         model = OrderUpdate
         fields = '__all__'
+
+
+class OrderQR(ModelForm):
+    
+    class Meta:
+        model = Orders
+        fields = ['order_qr']
