@@ -1,0 +1,26 @@
+body{
+    margin: 0;
+    padding: 0;
+    }
+
+    .card{
+      width:18rem;
+      height: 29rem; 
+      background-color: #dcdcdc;
+    }
+
+@media screen and (min-width: 600px) {
+  
+      .footer_mobile{
+        visibility:hidden;
+      }
+         
+    }
+
+@media screen and (max-width: 600px) {
+      body{
+        background-color: #ffee22;
+      }
+   
+        
+    } 
