@@ -67,7 +67,7 @@ def accountSettings(request):
     print("request.user ----> ", request.user)
     print("request.user.customer ----> ", request.user.customer)
     orders = request.user.customer.orders_set.all()
-    print(orders)
+    # print(orders)
     
     total_orders = orders.count()
     delivered = orders.filter(status='Delivered').count()

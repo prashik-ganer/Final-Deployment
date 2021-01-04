@@ -61,8 +61,8 @@ class Orders(models.Model):
 
 
     def __str__(self):
-        return "Order from : " + self.name + " - " + self.mode
     
+        return "Order from : " + self.name 
 
 
 class OrderUpdate(models.Model):
@@ -101,7 +101,12 @@ class SellerProductStock(models.Model):
 
     def __str__(self):
         return str(self.seller_pc) + " - " + (self.product_pc.product_name)
-    # @property
-    # def seller_products(self, seller):
-    #     products_list = Product.objects.filter(seller=seller)
-    #     return products_list
+
+
+# class Order_qr(models.Model):
+#     order_qr_id = models.ForeignKey(Orders, null=True, on_delete=models.SET_NULL)
+#     order_qr_image = models.ImageField(upload_to="shop/order_qr", default="", null=True, blank=True)
+
+
+#     def __str__(self):
+#         return str(self.order_qr_id.order_id)

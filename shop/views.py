@@ -114,10 +114,14 @@ def index(request):
 
 
 def about(request):
-    cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
-    if request.method=='POST':
-        cloudinary.uploader.upload("https://res.cloudinary.com/dbvh7sfop/image/upload/v1609251595/media/shop/images/tata-salt_nmjnpv.png")
-    return render(request, 'shop/about.html')
+    big_code = pyqrcode.create("sample1", error='L', version=15, mode='binary')
+    image_qrcode = big_code.png(f'media/qrcode/sample1.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
+    print("image_qrcode  ::   ", type(image_qrcode))
+    context = {'image_qrcode':image_qrcode}
+    # cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+    # cloudinary.uploader.upload("media/qrcode/sample1.png",public_id = 'sample1', folder="media/qrcode")
+    # if request.method=='POST':
+    return render(request, 'shop/about.html', context)
 
 def contact(request):
     thank = False
@@ -183,6 +187,8 @@ def checkout(request):
             order = Orders(customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
             order.save()
 
+
+
             update = OrderUpdate(customer=name, order_id=order.order_id, update_desc="The order has been placed")
             update.save()
             thank = True
@@ -211,9 +217,28 @@ def checkout(request):
             big_code = pyqrcode.create(sample, error='L', version=15, mode='binary')
             image_name = id
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
+            order.order_qr = f"media/qrcode/{id}.png"
+
+            cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+            cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
+
+
+
+            # qr_photo = Orders.objects.get(order_id=order.order_id)
+            # qr_photo.objects.update()
+            Orders.objects.filter(order_id=id).update(order_qr=f"media/qrcode/{id}.png")
             
-            qr_photo = Orders.objects.get(order_id=id)
-            qr_photo.order_qr = image_qrcode
+            # Orders.objects.update(
+            #     customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode, order_qr= f"media/qrcode/{id}.png"
+            # )
+
+
+            # qr_photo.order_qr = f"media/qrcode/{id}.png"
+            # qr_photo.save()
+            # qr_photo, created = Cart.objects.update_or_create(
+            #     customer=customer, defaults={"cart_items": data}
+            # )
+            
 
             # ---------------------------------------------------------------------------------------------------
             print("imtems_json : ", items_json)
@@ -247,9 +272,10 @@ def checkout(request):
             airtable.insert({'Order id': sample})   
             big_code = pyqrcode.create(sample, error='L', version=15, mode='binary')
             image_name = id
-            image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
-            qr_photo = Orders.objects.get(order_id=id)
-            qr_photo.order_qr = image_qrcode
+            big_code.png(f'https://res.cloudinary.com/dbvh7sfop/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
+            order.order_qr = f"media/qrcode/{id}.png"
+            cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+            cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
             # ---------------------------------------------------------------------------------------------------
             
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})      
@@ -278,11 +304,14 @@ def tracker(request):
                     response = json.dumps([updates,order[0].items_json], default=str)
                     print("response : ", response)
                 return HttpResponse(response)                                       # Very important to keep this line of code outside the for loop. If indented, it goes inside it, and will only show first update, that is of placing the order.
+
             else:
                 return HttpResponse('{}')
+
         except Exception as e:
             # return HttpResponse(f'Exeptions  {e}')
             return HttpResponse('{}')
+
 
 
     return render(request, 'shop/tracker.html')
@@ -601,8 +630,5 @@ def qrcode(request, order_id):
     order = Orders.objects.get(order_id=order_id)
     print("order Amount : ", order.amount)
     context = {'order_id':order_id, 'order':order}
-
-    
-
 
     return render(request, 'shop/qrcode.html', context)
