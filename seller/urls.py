@@ -9,6 +9,6 @@ urlpatterns = [
     path("products", views.products, name="products"),
     path("tracker/<str:status>", views.sellerTracker, name="sellerTracker"),
     path("qrcode", views.qrcode, name="qrcode"),
-    path("scanqr", views.scanqr, name="scanqr"),
+    # path("scanqr", views.scanqr, name="scanqr"),
     path("update_status/<str:status>", views.updateStatus, name="updateStatus"),
 ]
