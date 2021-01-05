@@ -18,6 +18,9 @@ import numpy
 
 import cloudinary
 from seller.forms import OrderQR
+
+import requests
+import json
 # import cv2
 # from pyzbar.pyzbar import decode
     
@@ -209,9 +212,27 @@ def checkout(request):
             sample = f'''{{'order_id': {id}}}'''
             # string_sample = json.dumps(sample)
             sample = sample.replace("\'","\"")
-            file1 = open('myfile.txt','a')
-            file1.write(sample)
-            file1.write("\n")  
+            # AIRTABLE-PYTHON INTEGRATION STARTS
+            update_url = 'https://api.airtable.com/v0/appJeyihmd9jyLKy1/Table?maxRecords=20&view=Orders'
+            update_headers = {
+                'Authorization': 'Bearer keydq2SURfHCN4Aig',
+                'Content-Type': 'application/json'
+            }
+            update_data = {
+                "fields": {
+                # "Name": 33,
+                "OrderId": sample
+            },
+            #   "createdTime": "2021-01-02T20:33:49.000Z"
+            }
+            
+            # print(update_data)
+            update_response = requests.post(update_url, headers=update_headers, json=update_data)
+            # AIRTABLE-PYTHON INTEGRATION ENDS
+            
+            # file1 = open('myfile.txt','a')
+            # file1.write(sample)
+            # file1.write("\n")  
 
             # print("sample :", string_sample)
             big_code = pyqrcode.create(sample, error='L', version=15, mode='binary')
@@ -266,13 +287,31 @@ def checkout(request):
             # ---------------------------------------------------------------------------------------------------
             sample = f'''{{'order_id': {id}}}'''
             sample = sample.replace("\'","\"")
-            file1 = open('myfile.txt','a')
-            file1.write(sample)         
-            file1.write("\n")        
-            airtable.insert({'Order id': sample})   
+            # AIRTABLE-PYTHON INTEGRATION STARTS
+            update_url = 'https://api.airtable.com/v0/appJeyihmd9jyLKy1/Table?maxRecords=20&view=Orders'
+            update_headers = {
+                'Authorization': 'Bearer keydq2SURfHCN4Aig',
+                'Content-Type': 'application/json'
+            }
+            update_data = {
+                "fields": {
+                # "Name": 33,
+                "OrderId": sample
+            },
+            #   "createdTime": "2021-01-02T20:33:49.000Z"
+            }
+            
+            # print(update_data)
+            update_response = requests.post(update_url, headers=update_headers, json=update_data)
+            # AIRTABLE-PYTHON INTEGRATION ENDS
+            
+            
+            # file1 = open('myfile.txt','a')
+            # file1.write(sample)         
+            # file1.write("\n")          
             big_code = pyqrcode.create(sample, error='L', version=15, mode='binary')
             image_name = id
-            big_code.png(f'https://res.cloudinary.com/dbvh7sfop/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
+            image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
             order.order_qr = f"media/qrcode/{id}.png"
             cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
             cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
