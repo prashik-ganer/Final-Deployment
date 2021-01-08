@@ -54,7 +54,11 @@ def index(request):
         n = len(prod)   
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
-
+    allProds.pop()
+    allProds.pop()
+    allProds.pop()
+    allProds.pop()
+    
     # user_cart = Cart.objects.values('customer', 'cart_items')
     # cartobjects = {item['customer'] for item in user_cart}                                       # Set comprehension
     # print(cartobjects)
@@ -64,8 +68,13 @@ def index(request):
         # cart, created = Cart.objects.update_or_create(
         # customer=customer, defaults={"cart_items": data}
         # )
-        cart_json, created = Cart.objects.get_or_create(customer=customer)
-        
+
+        # if Carts.objects.filter(customer=customer).exists():
+            
+        # cart_json, created = Cart.objects.get_or_create(customer=customer)
+        cart_json, created = Cart.objects.update_or_create(
+            customer=customer, 
+        )
         if created:
             cart_json.cart_items = '{}'
             cart = cart_json.cart_items
