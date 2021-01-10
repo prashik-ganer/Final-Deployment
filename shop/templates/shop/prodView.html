@@ -31,10 +31,10 @@
 
             <div class="buttons d-flex justify-content-center m-4" >
                     <span id="divpr{{product.id}}" class="divpr mx-2" >
-                        <button id="pr{{product.id}}" class="btn btn-danger cart "  ><b>ADD TO CART</b></button>
+                        <button id="pr{{product.id}}" class="btn btn-sm btn-danger cart "  ><b>ADD TO CART</b></button>
                     </span>
                     <span>
-                        <button class="btn btn-primary mx-2"><b>CHECKOUT</b></button>
+                        <button class="btn btn-sm btn-primary mx-2"><b>CHECKOUT</b></button>
                     </span>
             </div>
                         
@@ -121,7 +121,7 @@ $('.divpr').on('click', 'button.cart', function () {
       
       }
       //document.getElementsByClassName('cart').innerHTML = '<button id="pr{{product.id}}" class="btn btn-danger cart"  ><b>ADD TO CART</b></button>';
-    document.getElementById('div' + idstr).innerHTML = "<button id='minus" + idstr + "' class='btn btn-primary minus'>-</button> <span id='val" + idstr + "''>" + cart[idstr][0] + "</span> <button id='plus" + idstr + "' class='btn btn-primary plus'> + </button>";
+    document.getElementById('div' + idstr).innerHTML = "<button id='minus" + idstr + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + idstr + "''>" + cart[idstr][0] + "</span> <button id='plus" + idstr + "' class='btn btn-sm btn-danger plus'> + </button>";
       
     updateCart(cart);
 
@@ -141,7 +141,7 @@ function updateCart(cart) {
         sum = sum + cart[item][0];
       console.log("sum later", sum)
 
-      {% comment %} document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>"; {% endcomment %}
+      {% comment %} document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-sm btn-danger plus'> + </button>"; {% endcomment %}
 
       //if (item == 'div'+item){
       //  document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
