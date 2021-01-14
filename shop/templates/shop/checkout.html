@@ -108,8 +108,8 @@
           <!--    CHECK OUT FORM starts here   -->
           <form method="post" action="/shop/checkout/">
             {% csrf_token %}
-            <input type="hidden" name="itemsJson" id="itemsJson2">
-            <input type="hidden" name="totalPrice_database" id="totalPrice_database2">
+            <input type="hidden" name="itemsJson2" id="itemsJson2">
+            <input type="hidden" name="totalPrice_database2" id="totalPrice_database2">
             <input type="hidden" name="mode" id="delivery" value="Delivery">
 
             
@@ -280,13 +280,13 @@
                       ${name}
                       <span class="badge badge-primary badge-pill">${qty}</span>
                   </li>`
-      mystr = `
-					<ul class="list-group">
-						<li class="list-group-item d-flex justify-content-between align-items-center">
-							${name}
-						<span class="badge bg-primary rounded-pill px-2">${qty}</span>
-						</li>
-					</ul>`
+      // mystr = `
+			// 		<ul class="list-group">
+			// 			<li class="list-group-item d-flex justify-content-between align-items-center">
+			// 				${name}
+			// 			<span class="badge bg-primary rounded-pill px-2">${qty}</span>
+			// 			</li>
+			// 		</ul>`
       localStorage.setItem('totalPrice', totalPrice);
       $('#items').append(mystr);                                                   // could also have used '.innerHTML' of Javascript but instead, chose '.append' function of Jquery
 

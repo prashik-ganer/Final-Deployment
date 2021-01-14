@@ -88,17 +88,13 @@
       .footer_mobile{
         visibility:hidden;
       }
+      .nav-main{
+        
+      }
          
     }
 
-@media screen and (max-width: 600px) {
-      body{
-        {% comment %} background-color: #E2F0F1; {% endcomment %}
-        
-      }
-   
-        
-    } 
+
 
 
     .site-footer
@@ -271,11 +267,13 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-primary bg-light" style=" position: sticky; top: 0;  z-index: 3;">
-      <a class="navbar-brand text-dark" href="/shop"><b>NETWORK THEORY</b></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav class="navbar nav-main navbar-expand-lg navbar-primary bg-light px-2" style=" position: sticky; top: 0;  z-index: 3;">
+
+      <a class="navbar-brand text-dark mx-1" href="/shop"><b>NETWORK THEORY</b></a>
+      <button class="navbar-toggler border mx-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
       </button>
+      
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -337,13 +335,15 @@
           
           {% else %}
           <!-- Button trigger Login modal -->
-            <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
+          <div class="row">
+            <button type="button" class="btn  btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
               <b>Log-in</b>
             </button>
           <!-- Button trigger SignUp modal -->
-            <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
+            <button type="button" class="btn  btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
               <b>Sign-Up</b>
             </button>
+          </div>
          {% endif %} 
         
       
@@ -424,6 +424,9 @@
 </div>
 
   <!-- Login Modal -->
+
+  
+ 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

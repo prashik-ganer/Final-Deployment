@@ -178,8 +178,7 @@ def checkout(request):
             # if fullcaps == "on":
             #     print("fullcaps")
             print(request)
-            orderBtn = request.POST.get('removepunc', 'off')
-            pickupBtn = request.POST.get('removepunc', 'off')
+            seller = "shop_testuser"
             items_json = request.POST.get('itemsJson', '')
             mode = request.POST.get('mode', '')
             # print("pickup : ", pickup)
@@ -193,7 +192,7 @@ def checkout(request):
             phone = request.POST.get('inputPhone')
             print("amount : ", amount)
             print("amount : ", type(amount))
-            order = Orders(customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
+            order = Orders(seller=seller, customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
             order.save()
 
 
@@ -272,10 +271,11 @@ def checkout(request):
 
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})                    # 'thank' --> new parameter, : thank --> already declared variable
         else:
-            items_json = request.POST.get('itemsJson', '')
+            seller = "shop_testuser"
+            items_json = request.POST.get('itemsJson2', '')
             name = request.POST.get('name', '')
             email = request.POST.get('email', '')
-            amount = request.POST.get('totalPrice_database')
+            amount = request.POST.get('totalPrice_database2')
             phone = request.POST.get('inputPhone')
             address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
             zip_code = request.POST.get('zip_code', '')

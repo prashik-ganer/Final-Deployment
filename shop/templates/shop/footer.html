@@ -1,34 +1,30 @@
  <!-- Site footer -->
+ <style>
+ /* Checkout button, desplay:static */
+.checkoutBtn{
+  width: 70px;
+  position: fixed;
+  bottom: 1px;
+  right: 30px;
+  cursor:pointer;
+  z-index:3;
+}
+.site-footer{
+  position:static;
+  bottom:0;
+  margin-top: 100px;
+}
+
+ </style>
     <footer class="site-footer">
       <div class="container">
         <div class="row">
-          <div class="col-sm-12 col-md-6">
+          <div class="col-sm-12 col-md-12">
             <h6>About</h6>
-            <p class="text-justify">Scanfcode.com <i>CODE WANTS TO BE SIMPLE </i> is an initiative  to help the upcoming programmers with the code. Scanfcode focuses on providing the most efficient code or snippets as the code wants to be simple. We will help programmers build up concepts in different programming languages that include C, C++, Java, HTML, CSS, Bootstrap, JavaScript, PHP, Android, SQL and Algorithm.</p>
+            <p class="text-justify">Shophunt is a 2-way E-commerce platform. We are aiming to uplift the local shops by integrating them with our smart tech. So, indirectly, we are serving our customers through the chain of smart local shops.  We assure our performance to be faster-better-affordable.</p>
           </div>
 
-          <div class="col-xs-6 col-md-3">
-            <h6>Categories</h6>
-            <ul class="footer-links">
-              <li><a href="#">C</a></li>
-              <li><a href="#">UI Design</a></li>
-              <li><a href="#">PHP</a></li>
-              <li><a href="#">Java</a></li>
-              <li><a href="#">Android</a></li>
-              <li><a href="#">Templates</a></li>
-            </ul>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Quick Links</h6>
-            <ul class="footer-links">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Contribute</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Sitemap</a></li>
-            </ul>
-          </div>
+          
         </div>
         <hr>
       </div>
@@ -51,3 +47,12 @@
         </div>
       </div>
 </footer>
+
+<a href="checkout">
+  <div class="checkout-main">
+    <div class="checkoutBtn" style="display: flex; flex-direction: column; align-items: center;">
+      <img src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1610582328/media/checkout%20image.png" alt="">
+    <p ><strong>CHECKOUT</strong></p>
+    </div>
+  </div>
+</a>

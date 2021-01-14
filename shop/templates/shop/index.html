@@ -64,6 +64,16 @@ font-size: small;
 }
 
 
+/* Checkout button, desplay:static */
+.checkoutBtn{
+  width: 70px;
+  position: fixed;
+  bottom: 1px;
+  right: 30px;
+  cursor:pointer;
+  z-index:3;
+}
+
 @media screen and (min-width: 600px) {
 
 .footer_mobile{
@@ -116,7 +126,7 @@ height: 60%;
 
 
 
-*/
+
 .row {
   display: flex;
   
@@ -133,11 +143,14 @@ height: 60%;
 
 
 
+
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 500px) {
   .column {
     width: 100%;
   }
+
+  
   
 }
 
@@ -180,7 +193,7 @@ height: 60%;
 <section class="section-specials padding-y border-bottom">
 <div class="container">	
 <div class="row">
-<div class="col-md-4">	
+{% comment %} <div class="col-md-4">	
 			<figure class="itemside">
 				<div class="aside">
 					<span class="icon-sm rounded-circle bg-primary">
@@ -222,7 +235,7 @@ height: 60%;
 				</figcaption>
 			</figure> <!-- iconbox // -->
 	</div><!-- col // -->
-</div> <!-- row.// -->
+</div> <!-- row.// --> {% endcomment %}
 
 </div> <!-- container.// -->
 </section>
@@ -244,7 +257,6 @@ height: 60%;
         <h4> {{product.0.category}} </h4>
       </li>
       <a href="#" class="btn btn-outline-primary float-right">See all</a>
-
     </ol>
   </div>
 
@@ -402,6 +414,8 @@ height: 60%;
 </div>  
 </div>  
 
+
+
 {% include 'shop/footer.html' %}
 {% endblock %}
 
@@ -553,7 +567,7 @@ if (user != 'AnonymousUser') {
     popStr = popStr + "</div> <a href='/shop/checkout' <button class='btn btn-primary' id = 'checkout'>CheckOut</a>   <button class='btn btn-primary' onclick='clearCart()' id = 'clearcart'>Clear Cart</button>"
     // console.log(popStr);
     document.getElementById('popcart').setAttribute('data-content', popStr);
-    $('#popcart').popover('show');
+    //$('#popcart').popover('show');
   }
 
 
@@ -582,7 +596,7 @@ if (user != 'AnonymousUser') {
     sum = 0;
     for (var item in cart) {
       sum = sum + cart[item][0];
-      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-danger plus'> + </button>";
+      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-sm btn-danger plus'> + </button>";
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('database_cart', JSON.stringify(database_cart)); 
