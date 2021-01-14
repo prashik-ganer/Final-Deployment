@@ -21,8 +21,12 @@ from seller.forms import OrderQR
 
 import requests
 import json
-# import cv2
-# from pyzbar.pyzbar import decode
+
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
     
 
 
@@ -178,7 +182,10 @@ def checkout(request):
             # if fullcaps == "on":
             #     print("fullcaps")
             print(request)
-            seller = "shop_testuser"
+            #To be done
+            # seller = Seller.objects.filter(seller_name="shop_test")
+            # seller = seller.seller_user
+
             items_json = request.POST.get('itemsJson', '')
             mode = request.POST.get('mode', '')
             # print("pickup : ", pickup)
@@ -192,7 +199,7 @@ def checkout(request):
             phone = request.POST.get('inputPhone')
             print("amount : ", amount)
             print("amount : ", type(amount))
-            order = Orders(seller=seller, customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
+            order = Orders(customer=name, items_json=items_json , amount=amount, name=name, email=email, phone=phone, address=address, zip_code=zip_code, mode=mode)
             order.save()
 
 
@@ -218,7 +225,7 @@ def checkout(request):
             # string_sample = json.dumps(sample)
             sample = sample.replace("\'","\"")
             # AIRTABLE-PYTHON INTEGRATION STARTS
-            update_url = 'https://api.airtable.com/v0/appJeyihmd9jyLKy1/Table?maxRecords=20&view=Orders'
+            update_url = env("AIRTABLE_ORDER_UPDATE_URL")
             update_headers = {
                 'Authorization': 'Bearer keydq2SURfHCN4Aig',
                 'Content-Type': 'application/json'
@@ -245,7 +252,7 @@ def checkout(request):
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
             order.order_qr = f"media/qrcode/{id}.png"
 
-            cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+            cloudinary.config(cloud_name=env("CLOUD_NAME"),api_key=env("API_KEY"), api_secret=env("API_SECRET_CLOUDINARY"))
             cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
 
 
@@ -271,11 +278,12 @@ def checkout(request):
 
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})                    # 'thank' --> new parameter, : thank --> already declared variable
         else:
-            seller = "shop_testuser"
+            # seller = Seller.objects.filter(seller_name="shop_test")
+            # seller = seller.seller_user.name
             items_json = request.POST.get('itemsJson2', '')
             name = request.POST.get('name', '')
             email = request.POST.get('email', '')
-            amount = request.POST.get('totalPrice_database2')
+            amount = request.POST.get('totalPrice_database')
             phone = request.POST.get('inputPhone')
             address = request.POST.get('address1', '') + " " + request.POST.get('address2', '')
             zip_code = request.POST.get('zip_code', '')
@@ -294,7 +302,7 @@ def checkout(request):
             sample = f'''{{'order_id': {id}}}'''
             sample = sample.replace("\'","\"")
             # AIRTABLE-PYTHON INTEGRATION STARTS
-            update_url = 'https://api.airtable.com/v0/appJeyihmd9jyLKy1/Table?maxRecords=20&view=Orders'
+            update_url = env("AIRTABLE_ORDER_UPDATE_URL")
             update_headers = {
                 'Authorization': 'Bearer keydq2SURfHCN4Aig',
                 'Content-Type': 'application/json'
@@ -319,7 +327,7 @@ def checkout(request):
             image_name = id
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
             order.order_qr = f"media/qrcode/{id}.png"
-            cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+            cloudinary.config(cloud_name=env("CLOUD_NAME"),api_key=env("API_KEY"), api_secret=env("API_SECRET_CLOUDINARY"))
             cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
             # ---------------------------------------------------------------------------------------------------
             
