@@ -3,66 +3,28 @@
 {% block css %}
 
 
-.col-md-3
-{
-display: inline-block;
 
-margin-left:-4px;
-}
-.carousel-indicators .active {
-background-color: blue;
-}
-.col-md-3 img{
-width: 170px;
-height: 200px;
-}
-body .carousel-indicator li{
-background-color: blue;
-}
 
-.carousel-indicator li{
-background-color: red;
-}
-
-body .carousel-indicators{
-bottom: -40px;
-}
-
-body .carousel-control-prev-icon,
-body .carousel-control-next-icon{
-background-color: blue;
-}
-
-.carousel-control-prev,
-.carousel-control-next{
-top: auto;
-bottom: auto;
-padding-top: 222px;
-
-}
-
-body .no-padding{
-padding-left: 0;
-padding-right: 0;
-}
-
-.breadcrumb{
-  
-}
-
-.product-card{
-/* width:16rem; height: 25rem; */
- background-color: #fff;
-box-shadow: 2px 2px 8px #aaaaaa;
-}
 
 .card-title{
 font-size: medium;
+font-weight:bold;
+color:rgba(89, 84, 84, 0.844)
 }
 
-.card-text, .card-price{
+ .card-price{
+   font-size:medium;
+ }
+
+.card-text{
 font-size: small;
 }
+
+.main-product-card{
+  flex:25%;
+  
+}
+
 
 
 /* Checkout button, desplay:static */
@@ -75,13 +37,107 @@ font-size: small;
   z-index:3;
 }
 
-@media screen and (min-width: 600px) {
-
-.footer_mobile{
-visibility:hidden;
-}
+.card{
+box-shadow: 2px 2px 3.5px #aaaaaa;
 
 }
+
+@media screen and (max-width: 1205px) {
+body{
+background-color: #E2F0F1;
+}
+}
+
+@media screen and (max-width: 1000px) {
+body{
+background-color: #dc7070e9;
+}
+.row {
+  display: flex;
+  
+}
+
+
+.main-product-card{
+  flex:25%;
+  padding: 5px 10px; 
+}
+
+.card-img-top{
+  width:80%;
+}
+
+
+
+.card-title{
+font-size: small;
+font-weight:bold;
+color:rgba(89, 84, 84, 0.844)
+}
+
+ .card-price{
+   font-size:small;
+ }
+
+.card-text{
+  display:none;
+}
+
+
+.btn-group-sm>.btn, .btn-sm {
+
+font-size: 0.6rem;
+
+}
+
+.AddToCartBtn, .quickViewBtn, .product-count-sudo{
+font-size: 0.7rem;
+
+}
+
+  
+.add-to-cart-text{
+  display:none;
+}
+
+.add-to-cart-sudo, .minus-sudo, .plus-sudo{
+font-size: 0.6rem;
+
+}
+
+
+
+}
+
+
+
+@media screen and (max-width: 390px) {
+body{
+background-color: #55ee22;
+}
+
+.main-product-card{
+   display:flex;
+}
+
+.product-card{
+  flex:25%;
+}
+
+
+
+.btn-group-sm>.btn, .btn-sm {
+
+font-size: 0.5rem;
+
+}
+
+
+
+}
+
+
+{% comment %} 
 
 @media screen and (max-width: 600px) {
 body{
@@ -138,36 +194,9 @@ height: 100px;
     width: 100%;
   }
 }
+ {% endcomment %}
 
 
-
-
-.row {
-  display: flex;
-  
-}
-
-.column {
-  flex: 25%;
-  padding: 5px;
-}
-
-.button-container{
-  display:flex;
-}
-
-
-
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 500px) {
-  .column {
-    width: 100%;
-  }
-
-  
-  
-}
 
 
 
@@ -179,177 +208,60 @@ height: 100px;
 
 {% load static %}
 
-<!-- <div class="row">
-  <div class="column">
-    <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Snow" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Forest" style="width:100%">
-  </div>
-  <div class="column">
-    <img src="https://source.unsplash.com/1600x900/?nature,water" alt="Mountains" style="width:100%">
-  </div>
-</div>
-</div>
-
-<section class="section-intro">
-
-<div class="intro-banner-wrap">
-	<img src="https://source.unsplash.com/1500x1200/?car" class="w-100 img-fluid">
-</div>
-
-</section> -->
-
-{% comment %} <section class="banner-img">
-<img src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1610102910/media/logo/kmlwbif7i7tmh7jrjgsy.png" class="img-fluid" alt="Responsive image" style="width:100%; height:90vh;">
-</section> {% endcomment %}
-
-
-<section class="section-specials padding-y border-bottom">
-<div class="container">	
-<div class="row">
-{% comment %} <div class="col-md-4">	
-			<figure class="itemside">
-				<div class="aside">
-					<span class="icon-sm rounded-circle bg-primary">
-						<i class="fa fa-money-bill-alt white"></i>
-					</span>
-				</div>
-				<figcaption class="info">
-					<h6 class="title">Reasonable prices</h6>
-					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labor </p>
-				</figcaption>
-			</figure> <!-- iconbox // -->
-	</div><!-- col // -->
-	<div class="col-md-4">
-			<figure class="itemside">
-				<div class="aside">
-					<span class="icon-sm rounded-circle bg-danger">
-						<i class="fa fa-comment-dots white"></i>
-					</span>
-				</div>
-				<figcaption class="info">
-					<h6 class="title">Customer support 24/7 </h6>
-					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labor </p>
-				</figcaption>
-			</figure> <!-- iconbox // -->
-	</div><!-- col // -->
-	<div class="col-md-4">
-			<figure class="itemside">
-				<div class="aside">
-					<span class="icon-sm rounded-circle bg-success">
-						<i class="fa fa-truck white"></i>
-					</span>
-				</div>
-				<figcaption class="info">
-					<h6 class="title">Quick delivery</h6>
-					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labor </p>
-				</figcaption>
-			</figure> <!-- iconbox // -->
-	</div><!-- col // -->
-</div> <!-- row.// --> {% endcomment %}
-
-</div> <!-- container.// -->
-</section>
-
-
-
-
-<div class="container">
-<div class="container mt-2">
-
- 
- 
-  <!--Slideshow starts here -->
+<section class="section-content container padding-bottom-sm">
+  <div class="">
   {% for product, range, nSlides in allProds %}
+        
+      <div aria-label="breadcrumb my-5 ">
+        <ol class="breadcrumb  mb-0 border">
+          <li class="breadcrumb-item active   mr-auto text-uppercase" aria-current="page">
+            <h4> {{product.0.category}} </h4>
+          </li>
+          <a href="#" class="btn btn-outline-primary float-right"><b>See all</b></a>
+        </ol>
+      </div>
+
   
-  <div aria-label="breadcrumb mt-5 ">
-    <ol class="breadcrumb  mb-0 border">
-      <li class="breadcrumb-item active   mr-auto text-uppercase" aria-current="page">
-        <h4> {{product.0.category}} </h4>
-      </li>
-      <a href="#" class="btn btn-outline-primary float-right">See all</a>
-    </ol>
-  </div>
-
-  <div class="row d-flex flex-row">
-    <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel" data-interval="false">
-      <ul class="carousel-indicators">
-        <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
-        {% for i in range %}
-        <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
-        {% endfor %}
-      </ul>
-
-
-      <div class="container carousel-inner no-padding" data-interval="false" data-interval="false">
-        <div class="carousel-item active" style="width:fit-content;">
-
+        <div class="row my-3">
           {% for i in product %}
 
-
-          <!-- Important Line, Foundation for all -->
-          <div class="col-xs-3 col-sm-3 col-md-3 my-2 px-2 product-card-container" style="width:fit-content;">
-
-            <div class="product-card align-items-center mx-auto pt-2">
-
-              <div class="card-image">
-                <img src="{{i.image.url}}" class="card-img-top" alt="..." style="">
+          <div class=" px-1 main-product-card">
+            <div href="#" class="card-product-grid column">
+              <div class="card product-card" style="">
+              <div class="img-container d-flex  justify-content-center">
+                <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap">
               </div>
+                <div class="card-body px-2">
+                  <h5 class="card-title my-0" id="namepr{{i.id}}">{{i.product_name}}</h5>
+                  <h6 class="card-price my-1">Price : <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                  <p class="card-text ">{{i.desc|slice:"0:53"}}...</p>
 
-              <div class="card-body d-flex flex-column justify-content-around">
-
-                <div class="div-card-title">
-                  <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
+                  <div class="button-container div d-flex">
+                    <span id="divpr{{i.id}}" class="divpr">
+                      <!-- <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</but  ton>  -->
+                      <button id="pr{{i.id}}" class="btn btn-danger btn-sm cart mx-1 AddToCartBtn"> <span class="add-to-cart-text"> Add to cart </span>
+                        <i class="fa fa-shopping-cart"></i> 
+                      </button>
+                    </span>
+                    <span  >
+                    <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2 quickViewBtn">QuickView</button></a>
+                    
+                    </span>
+                  </div>
                 </div>
-                <!---  {{forloop.counter}}  -->
-                <div class="div-card-text">
-                  <p class="card-text">{{i.desc|slice:"0:53"}}...</p>
-                </div>
-                <div class="div-card-price">
-                  <h6 class="card-price">Price : <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
-                </div>
-
-                <!-- Display Price on HomePage -->
-                <div class="div d-flex">
-                  <span id="divpr{{i.id}}" class="divpr">
-                     <!-- <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</but  ton>  -->
-                    <button id="pr{{i.id}}" class="btn btn-danger btn-sm cart mx-1"> Add to cart
-                      <i class="fa fa-shopping-cart"></i> 
-                    </button>
-                  </span>
-                  <span  >
-                <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2">QuickView</button></a>
-                   
-                  </span>
-                </div>
-
               </div>
-
             </div>
-          </div>
-
-
+          </div> <!-- col.// -->
           {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
-        </div>
-        <div class="carousel-item px-2" style="width:fit-content;">
-        
+          </div>
+          <div class="row">
+          
           {% endif %}
           {% endfor %}
-        </div>
-      </div>
-    </div>
-
-
-    
-  </div>
+          </div> <!-- row.// -->
   {% endfor %}
-</div>
-
-</div>
+  </div> <!-- container .//  -->
+</section>
 
 
 <section class="py-5 px-2 " style="background: #d0d0d0;">
@@ -395,7 +307,7 @@ height: 100px;
 </section>
 
 
-
+{% comment %} 
 
 <div class="container mt-4">
   <div class="mx-auto">
@@ -427,7 +339,7 @@ height: 100px;
     </div>
     
 </div>  
-</div>  
+</div>   {% endcomment %}
 
 
 
@@ -611,7 +523,7 @@ if (user != 'AnonymousUser') {
     sum = 0;
     for (var item in cart) {
       sum = sum + cart[item][0];
-      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-sm btn-danger plus'> + </button>";
+      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus minus-sudo'>-</button> <span id='val" + item + "'' class='product-count-sudo'>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-sm btn-danger plus plus-sudo'> + </button>";
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('database_cart', JSON.stringify(database_cart)); 
@@ -635,7 +547,7 @@ if (user != 'AnonymousUser') {
     cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
 
     if (cart['pr' + a][0] == 0) {
-      document.getElementById('divpr' + a).innerHTML = '<button id="pr' + a + '" class="btn btn-sm btn-danger cart">Add to Cart<i class="fa fa-shopping-cart"></i> </button>'
+      document.getElementById('divpr' + a).innerHTML = '<button id="pr' + a + '" class="btn btn-sm btn-danger cart add-to-cart-sudo">  <span class="add-to-cart-text">Add to Cart</span><i class="fa fa-shopping-cart"></i> </button>'
       delete cart['pr' + a];
     }
     
