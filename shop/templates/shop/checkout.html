@@ -52,7 +52,7 @@
           {% if user.is_authenticated %}
         
               <div class="row">
-                <div class="form-group col-4">
+                <div class="form-group col">
                   <label for="inputPhone">Phone Number</label>
                   <input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Phone number">
                 </div>
@@ -65,15 +65,15 @@
 
           {% else %}
               <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-2 mb-3">
                   <label for="firstName">Name</label>
                   <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="" required="">
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-2 mb-3">
                   <label for="inputPhone">Phone Number</label>
                   <input type="tel" class="form-control" id="inputPhone" name="inputPhone" placeholder="Phone"> 
                 </div>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-2 mb-3">
                   <label for="Email">Email</label>
                   <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="" required="">
                   <small class="text-muted">(To Track your order)</small>
