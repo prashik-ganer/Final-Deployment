@@ -25,6 +25,10 @@ font-size: small;
   
 }
 
+.card-img-top{
+  width:80%;
+}
+
 
 
 /* Checkout button, desplay:static */
@@ -47,6 +51,9 @@ body{
 background-color: #E2F0F1;
 }
 }
+
+
+
 
 @media screen and (max-width: 1000px) {
 body{
@@ -110,6 +117,19 @@ font-size: 0.6rem;
 }
 
 
+@media screen and (max-width: 500px) {
+p{
+font-size: 1.9 rem;
+}
+
+.main-product-card{
+  flex:25%;
+  padding: 5px 10px; 
+}
+
+}
+
+
 
 @media screen and (max-width: 390px) {
 body{
@@ -123,7 +143,7 @@ background-color: #55ee22;
 .product-card{
   flex:25%;
 }
-
+]
 
 
 .btn-group-sm>.btn, .btn-sm {
@@ -132,72 +152,7 @@ font-size: 0.5rem;
 
 }
 
-
-
 }
-
-
-{% comment %} 
-
-@media screen and (max-width: 600px) {
-body{
-background-color: #E2F0F1;
-}
-.card{
-height: fit-content; background-color: #fff;
-}
-
-.card-text{
-display: none;
-}
-
-.card-price{
-font-size: medium;
-}
-
-
-.card-body{
-height: 60%;
-}
-
-.col-md-3 img{
-width: 85px;
-height: 100px;
-}
-
-.product-card{
-  
-   
-   background-color: #fff;
-  box-shadow: 2px 2px 8px #aaaaaa;
-  }
-  .product-card-container{
-    display: flex;
-  }
-
-}
-
-
-.row {
-  display: flex;
-}
-
-.column {
-  flex: 33.33%;
-  padding: 5px;
-}
-
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 500px) {
-  .column {
-    width: 100%;
-  }
-}
- {% endcomment %}
-
-
-
 
 
 
@@ -212,10 +167,10 @@ height: 100px;
   <div class="">
   {% for product, range, nSlides in allProds %}
         
-      <div aria-label="breadcrumb my-5 ">
+      <div aria-label="breadcrumb my-5 border-left-primary">
         <ol class="breadcrumb  mb-0 border">
-          <li class="breadcrumb-item active   mr-auto text-uppercase" aria-current="page">
-            <h4> {{product.0.category}} </h4>
+          <li class="breadcrumb-item active mt-1  mr-auto text-uppercase" aria-current="page">
+            <h5><b> {{product.0.category}} </b></h5>
           </li>
           <a href="#" class="btn btn-outline-primary float-right"><b>See all</b></a>
         </ol>
@@ -239,12 +194,12 @@ height: 100px;
                   <div class="button-container div d-flex">
                     <span id="divpr{{i.id}}" class="divpr">
                       <!-- <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</but  ton>  -->
-                      <button id="pr{{i.id}}" class="btn btn-danger btn-sm cart mx-1 AddToCartBtn"> <span class="add-to-cart-text"> Add to cart </span>
+                      <button id="pr{{i.id}}" class="btn btn-danger btn-sm cart mx-1 AddToCartBtn"> <span class="add-to-cart-text"> <b>Add to cart </b></span>
                         <i class="fa fa-shopping-cart"></i> 
                       </button>
                     </span>
                     <span  >
-                    <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2 quickViewBtn">QuickView</button></a>
+                    <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2 quickViewBtn"><b>QuickcView</b></button></a>
                     
                     </span>
                   </div>
@@ -503,7 +458,7 @@ if (user != 'AnonymousUser') {
   function clearCart() {
     cart = JSON.parse(localStorage.getItem('cart'));
     for (var item in cart) {
-      document.getElementById('div' + item).innerHTML = '<button id="' + item + '"class="btn btn-sm btn-danger cart">Add To Cart</button>';
+      document.getElementById('div' + item).innerHTML = '<button id="' + item + '"class="btn btn-sm btn-danger cart"><b>Add To Cart</b></button>';
     }
     localStorage.clear();
     cart = {};
