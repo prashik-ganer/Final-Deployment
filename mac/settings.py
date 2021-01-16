@@ -164,7 +164,7 @@ STATICFILES_DIRS = [
 ]
 
 # Managing Media
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 DEFAULT_FILE_STORAGE = env("DEFAULT_FILE_STORAGE")
