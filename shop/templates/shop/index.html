@@ -48,7 +48,7 @@ box-shadow: 2px 2px 3.5px #aaaaaa;
 
 @media screen and (max-width: 1205px) {
 body{
-background-color: #E2F0F1;
+{% comment %} background-color: #E2F0F1; {% endcomment %}
 }
 }
 
@@ -57,7 +57,7 @@ background-color: #E2F0F1;
 
 @media screen and (max-width: 1000px) {
 body{
-background-color: #dc7070e9;
+{% comment %} background-color: #dc7070e9; {% endcomment %}
 }
 .row {
   display: flex;
@@ -133,7 +133,7 @@ font-size: 1.9 rem;
 
 @media screen and (max-width: 390px) {
 body{
-background-color: #55ee22;
+{% comment %} background-color: #55ee22; {% endcomment %}
 }
 
 .main-product-card{
@@ -168,7 +168,7 @@ font-size: 0.5rem;
   {% for product, range, nSlides in allProds %}
         
       <div aria-label="breadcrumb my-5 border-left-primary">
-        <ol class="breadcrumb  mb-0 border">
+        <ol class="breadcrumb my-2 mb-0 border">
           <li class="breadcrumb-item active mt-1  mr-auto text-uppercase" aria-current="page">
             <h5><b> {{product.0.category}} </b></h5>
           </li>
@@ -181,8 +181,8 @@ font-size: 0.5rem;
           {% for i in product %}
 
           <div class=" px-1 main-product-card">
-            <div href="#" class="card-product-grid column">
-              <div class="card product-card" style="">
+            <div href="#" class="card-product-grid column" style="height:100%">
+              <div class="card product-card pt-3" style="height:100%">
               <div class="img-container d-flex  justify-content-center">
                 <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap">
               </div>
@@ -219,7 +219,8 @@ font-size: 0.5rem;
 </section>
 
 
-<section class="py-5 px-2 " style="background: #d0d0d0;">
+{% comment %} <section class="py-5 px-2 " style="background: #d0d0d0;"> {% endcomment %}
+<section class="py-5 px-2 ">
 <div class="container-fluid">
 <article class="card card-body">
 
@@ -307,11 +308,6 @@ font-size: 0.5rem;
       
 
 
-
-// obj = {"name": "Prashik", "length": 1, "a": {this: "that"}}
-// jso = JSON.stringify(obj);
-// console.log(typeof jso)
-// console.log(jso)
 
 if (user != 'AnonymousUser') {
         var received = "{{cart|escapejs}}"

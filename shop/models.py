@@ -9,6 +9,7 @@ class Product(models.Model):
     seller = models.ManyToManyField(Seller)
     product_id = models.AutoField
     product_name = models.CharField(max_length=255)
+    product_name_long = models.CharField(max_length=255, null=True, blank=True)
     category = models.CharField(max_length=50, default="")
     subcategory = models.CharField(max_length=50, default="")
     price = models.IntegerField(default=0)
@@ -45,13 +46,13 @@ class Orders(models.Model):
     customer = models.ForeignKey(Customer, null=True, blank=True, on_delete=models.SET_NULL)
     order_id = models.AutoField(primary_key=True)
     items_json = models.CharField(max_length=5000)
-    amount= models.BigIntegerField(default=0)
+    amount= models.IntegerField(default=0)
     name= models.CharField(max_length=90)
     email= models.CharField(max_length=111)
     
     address= models.CharField(max_length=111)
     zip_code= models.CharField(max_length=111)  
-    phone= models.IntegerField(default=0)
+    phone= models.BigIntegerField(default=0)
     status = models.CharField(max_length=200, null=True, blank=True, choices=STATUS, default="Pending")
     mode = models.CharField(max_length=200, null=True, blank=True, choices=MODE)
     # order_qr = CloudinaryField('qrcode', null=True, blank=True)
