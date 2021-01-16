@@ -9,7 +9,6 @@ class Product(models.Model):
     seller = models.ManyToManyField(Seller)
     product_id = models.AutoField
     product_name = models.CharField(max_length=255)
-    product_name_long = models.CharField(max_length=255, null=True, blank=True)
     category = models.CharField(max_length=50, default="")
     subcategory = models.CharField(max_length=50, default="")
     price = models.IntegerField(default=0)
