@@ -19,4 +19,6 @@ urlpatterns = [
     path("stores/", views.stores, name="stores"),
     path("update_item/", views.updateItem, name="update_item"),
     path("qrcode/id=<int:order_id>", views.qrcode, name="qrcode"),
+    path("allorders/", views.allOrders, name="all-orders"),
+    
 ]

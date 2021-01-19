@@ -22,6 +22,10 @@ from seller.forms import OrderQR
 import requests
 import json
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import AllOrdersSerializer
+
 import environ
 
 env = environ.Env()
@@ -505,7 +509,7 @@ def handleLogout(request):
     return redirect('ShopHome')
 
 
-
+# @api_view(['GET'])
 def category(request):
     
     # catprods = Product.objects.filter('category', 'id')
@@ -527,8 +531,9 @@ def category(request):
 
 
 
-    return render(request, 'shop/category.html', context)
+    # return Response(context)
     # return render(request, 'shop/category.html', contextalldetals)
+    return render(request, 'shop/category.html', context)
 
 
     
@@ -685,3 +690,14 @@ def qrcode(request, order_id):
     context = {'order_id':order_id, 'order':order}
 
     return render(request, 'shop/qrcode.html', context)
+
+
+@api_view(['GET'])
+def allOrders(request):
+    all_orders = Orders.objects.all()
+    print("type :: ", type(all_orders))
+    print("type :: ", all_orders)
+    serializer = AllOrdersSerializer(all_orders, many=True)
+    # print("All Orders : ", all_orders)
+
+    return Response(serializer)

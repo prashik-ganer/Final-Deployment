@@ -14,6 +14,9 @@ import pyqrcode
 from .filters import OrdersFilter
 
 
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 # Create your views here.
 def home(request):
     sellers =  Seller.objects.all()
