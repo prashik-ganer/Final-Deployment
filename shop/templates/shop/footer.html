@@ -9,50 +9,31 @@
   cursor:pointer;
   z-index:3;
 }
+
 .site-footer{
-  position:static;
+  position:fixed;
   bottom:0;
-  margin-top: 100px;
+  width:100%;
+  padding: 5px 0;
 }
 
  </style>
-    <footer class="site-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 col-md-12">
-            <h6>About</h6>
-            <p class="text-justify">NETWORK THEORY is a 2-way E-commerce platform. We are aiming to uplift the local shops by integrating them with our smart tech. So, indirectly, we are serving our customers through the chain of smart local shops.  We assure our performance to be faster-better-affordable.</p>
-          </div>
 
-          
-        </div>
-        <hr>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyright &copy; 2017 All Rights Reserved by 
-         <a href="#">Scanfcode</a>.
-            </p>
-          </div>
-
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <ul class="social-icons">
-              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
-            </ul>
-          </div>
-        </div>
-      </div>
+<div class="row site-footer d-flex flex-row">
+    <div class="d-flex flex-row justify-content-center" style="flex:1">
+    HOME</div>
+    <div class="d-flex flex-row justify-content-center" style="flex:1">CATEGORY</div>
+    <div class="d-flex flex-row justify-content-center" style="flex:1">SCAN</div>
+    <div class="d-flex flex-row justify-content-center" style="flex:1">TRACK</div>
+    <div class="d-flex flex-row justify-content-center" style="flex:1">PROFILE</div>
+  </div>
 </footer>
 
-<a href="checkout">
+{% comment %} <a href="checkout">
   <div class="checkout-main">
     <div class="checkoutBtn" style="display: flex; flex-direction: column; align-items: center;">
       <img src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1610582328/media/checkout%20image.png" alt="">
     <p ><strong>CHECKOUT</strong></p>
     </div>
   </div>
-</a>
+</a> {% endcomment %}

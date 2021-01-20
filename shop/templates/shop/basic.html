@@ -19,11 +19,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
 
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title>{% block title %} {% endblock title %}</title>
     <script>
       var user = '{{request.user}}'
@@ -262,6 +262,10 @@
           <li class="nav-item {% block categoryactive %}{% endblock categoryactive %}">
             <a class="nav-link" href="/shop/category"><strong>CATEGORIES</strong></a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/shop/scan"><strong>SCAN</strong></a>
+          </li>
+          
           <li class="nav-item {% block storesactive %}{% endblock storesactive %}">
             <a class="nav-link" href="/shop/stores"><strong>STORES</strong></a>
           </li>
