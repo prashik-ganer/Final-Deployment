@@ -26,10 +26,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import AllOrdersSerializer
 
-import cv2
-import numpy as np
-from pyzbar.pyzbar import decode
-import urllib.request
+# import cv2
+# import numpy as np
+# from pyzbar.pyzbar import decode
+# import urllib.request
 
 
 
@@ -139,25 +139,25 @@ def index(request):
 
 def scan(request):
 
-    cap = cv2.VideoCapture(0)
-    while True:
-        success, img = cap.read()
-        for qrcode in decode(img):
-            # print(qrcode.data)
-            myData = qrcode.data.decode('utf-8')
-            print(myData)
-            pts = np.array([qrcode.polygon],np.int32)
-            pts = pts.reshape((-1,1,2))
-            cv2.polylines(img,[pts],True,(255,0,255),5)
+    # cap = cv2.VideoCapture(0)
+    # while True:
+    #     success, img = cap.read()
+    #     for qrcode in decode(img):
+    #         # print(qrcode.data)
+    #         myData = qrcode.data.decode('utf-8')
+    #         print(myData)
+    #         pts = np.array([qrcode.polygon],np.int32)
+    #         pts = pts.reshape((-1,1,2))
+    #         cv2.polylines(img,[pts],True,(255,0,255),5)
 
-            pts2 = qrcode.rect
-            cv2.putText(img,myData,(pts2[0],pts2[1]), cv2.FONT_HERSHEY_SIMPLEX,0.9,(255,0,255),2)
+    #         pts2 = qrcode.rect
+    #         cv2.putText(img,myData,(pts2[0],pts2[1]), cv2.FONT_HERSHEY_SIMPLEX,0.9,(255,0,255),2)
 
-        cv2.imshow('Result : ', img)
-        cv2.waitKey(1)
-    return render(request, 'shop/scan.html')
-    # return HttpResponse("scan")
-
+    #     cv2.imshow('Result : ', img)
+    #     cv2.waitKey(1)
+    # return render(request, 'shop/scan.html')
+    # # return HttpResponse("scan")
+    pass
 
 
 
