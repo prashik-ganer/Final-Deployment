@@ -11,6 +11,5 @@ urlpatterns = [
     path("qrcode", views.qrcode, name="qrcode"),
     # path("scanqr", views.scanqr, name="scanqr"),
     path("update_status/<str:status>", views.updateStatus, name="updateStatus"),
-    path("websdk", views.webDataSdk, name="webDataSdk"),
 
 ]
