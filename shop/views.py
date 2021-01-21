@@ -26,10 +26,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .serializers import AllOrdersSerializer
 
-# import cv2
-# import numpy as np
-# from pyzbar.pyzbar import decode
-# import urllib.request
+import cv2
+import numpy as np
+from pyzbar.pyzbar import decode
+import urllib.request
 
 
 
@@ -137,27 +137,8 @@ def index(request):
     return render(request, 'shop/index.html', params)
 
 
-def scan(request):
-
-    # cap = cv2.VideoCapture(0)
-    # while True:
-    #     success, img = cap.read()
-    #     for qrcode in decode(img):
-    #         # print(qrcode.data)
-    #         myData = qrcode.data.decode('utf-8')
-    #         print(myData)
-    #         pts = np.array([qrcode.polygon],np.int32)
-    #         pts = pts.reshape((-1,1,2))
-    #         cv2.polylines(img,[pts],True,(255,0,255),5)
-
-    #         pts2 = qrcode.rect
-    #         cv2.putText(img,myData,(pts2[0],pts2[1]), cv2.FONT_HERSHEY_SIMPLEX,0.9,(255,0,255),2)
-
-    #     cv2.imshow('Result : ', img)
-    #     cv2.waitKey(1)
-    # return render(request, 'shop/scan.html')
-    # # return HttpResponse("scan")
-    pass
+# def scan(request):
+#     pass
 
 
 
@@ -193,9 +174,24 @@ def contact(request):
     # return render(request, 'shop/contact.html', {'thank': thank})
     return render(request, 'shop/contact.html')
 
+def searchMatch(query, item):
+    
+    return True
 
 def search(request):
-    return render(request, 'shop/search.html')
+    query = request.GET.get('search')
+    allProds=[]
+    catprods = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}                                       # Set comprehension
+    # print(cats)
+    for cat in cats:
+        prodtemp = Product.objects.filter(category=cat)
+        prod = [item for item in prodtemp if searchMatch(query, item)]
+        n = len(prod)   
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+    params = {'allProds': allProds}
+    return render(request, 'shop/search.html', params)
 
 def productView(request, myid):
     # Fetch the product using the id
