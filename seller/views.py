@@ -211,3 +211,5 @@ def qrcode(request):
     # context = {'image_name':image_name, 'image_qrcode':image_qrcode}
     return HttpResponse("qrcode!")
 
+def webDataSdk(request):
+    return render(request, 'seller/websdk-ScanFile.html')
