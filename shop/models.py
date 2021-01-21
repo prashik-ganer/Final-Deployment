@@ -12,7 +12,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, default="")
     subcategory = models.CharField(max_length=50, default="")
     price = models.IntegerField(default=0)
-    desc = models.CharField(max_length=500)
+    desc = models.CharField(max_length=2000)
     pub_date = models.DateField()
     image = models.ImageField(upload_to="shop/images", default="", null=True, blank=True)
     inStock = models.BooleanField()
@@ -51,7 +51,7 @@ class Orders(models.Model):
     
     address= models.CharField(max_length=111)
     zip_code= models.CharField(max_length=111)  
-    phone= models.IntegerField(default=0)
+    phone= models.BigIntegerField(default=0)
     status = models.CharField(max_length=200, null=True, blank=True, choices=STATUS, default="Pending")
     mode = models.CharField(max_length=200, null=True, blank=True, choices=MODE)
     # order_qr = CloudinaryField('qrcode', null=True, blank=True)

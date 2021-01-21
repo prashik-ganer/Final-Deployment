@@ -114,9 +114,8 @@ height: 60%;
   }
 }
 
-
-
 */
+
 .row {
   display: flex;
   
@@ -133,15 +132,15 @@ height: 60%;
 
 
 
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other 
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 500px) {
   .column {
     width: 100%;
   }
-  
+
 }
 
-*/
+
 
 
 {% endblock %}
@@ -225,144 +224,72 @@ height: 60%;
 
 
 
-<div class="container">
-<div class="container mt-2">
 
- 
- 
-  <!--Slideshow starts here -->
-  {% for product, range, nSlides in allProds %}
-  
-  <div aria-label="breadcrumb mt-5 ">
-    <ol class="breadcrumb p-1 mb-0 border">
-      <li class="breadcrumb-item active  p-2 mr-auto text-uppercase" aria-current="page">
-        <h4> {{product.0.category}} </h4>
-      </li>
-    </ol>
-  </div>
-
-  <div class="row d-flex flex-row">
-    <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel" data-interval="false">
-      <ul class="carousel-indicators">
-        <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
-        {% for i in range %}
-        <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
-        {% endfor %}
-      </ul>
-
-
-      <div class="container carousel-inner no-padding" data-interval="false" data-interval="false">
-        <div class="carousel-item active" style="width:fit-content;">
-
-          {% for i in product %}
-
-
-          <!-- Important Line, Foundation for all -->
-          <div class="col-xs-3 col-sm-3 col-md-3 my-2 px-2" style="width:fit-content;">
-
-            <div class="product-card align-items-center mx-auto pt-2">
-
-              <div class="card-image">
-                <img src="{{i.image.url}}" class="card-img-top" alt="..." style="">
-              </div>
-
-              <div class="card-body d-flex flex-column justify-content-around">
-
-                <div class="div-card-title">
-                  <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
-                </div>
-                <!---  {{forloop.counter}}  -->
-                <div class="div-card-text">
-                  <p class="card-text">{{i.desc|slice:"0:53"}}...</p>
-                </div>
-                <div class="div-card-price">
-                  <h6 class="card-price">Price : <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
-                </div>
-
-                <!-- Display Price on HomePage -->
-                <div class="div d-flex">
-                  <span id="divpr{{i.id}}" class="divpr">
-                     <!-- <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</button>  -->
-                    <button id="pr{{i.id}}" class="btn btn-danger btn-sm cart mx-1"> Add to cart
-                      <i class="fa fa-shopping-cart"></i> 
-                    </button>
-                  </span>
-                  <span  >
-                <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2">QuickView</button></a>
-                   
-                  </span>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-
-
-          {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
-        </div>
-        <div class="carousel-item px-2" style="width:fit-content;">
-        
-          {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-
-
-    <!-- left and right controls for the slide -->
-    <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
-      <span class="carousel-control-prev-icon"></span>
-     <span><img src="media/left_arrow.png" alt=""></span> 
-    </a>
-    <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
-      <span class="carousel-control-next-icon"></span>
- <span><img src="media/right_arrow.png" alt=""></span> 
-    </a>
-  </div>
-  {% endfor %}
-</div>
-
-</div>
-
-
-<section class="section-content padding-bottom-sm">
+<section class="container-fluid section-content padding-bottom-sm">
   <div class="">
-
-
           {% for product, range, nSlides in allProds %}
 
-              <header class="section-heading">
-                <a href="#" class="btn btn-outline-primary float-right">See all</a>
-                <h3 class="section-title">Recommended</h3>
-              </header><!-- sect-heading -->
+              {% comment %} <header class="section-heading">
+                <h3 class="section-title">{{product.0.category}}</h3>
+              </header><!-- sect-heading --> {% endcomment %}
+            <div aria-label="breadcrumb">
+              <ol class="breadcrumb mt-2 d-flex justify-content-between flex-wrap">
+                <li class="breadcrumb-item active text-uppercase" aria-current="page">
+                 <h3 > <b> {{product.0.category}} </b></h3>
+                </li>
+                <a href="category/{{product.0.category}}" class="btn btn-outline-primary">See all</a>
+              </ol>
+            </div>
+
+
+
+
+
         
-            <div class="row ">
-              <div class="col-3">
-
+            <div class="row px-2">
                    {% for i in product %}
+              <div class="col px-1 d-flex flex-row">
 
-                    <div href="#" class="card card-product-grid">
-                      <div class="card" style="">
-                        <img class="card-img-top" src="https://source.unsplash.com/500x400/?car" alt="Card image cap">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
+                    <div href="#" class="  card-product-grid" >
+                      <div class="card " style="">
+                          <img class="card-img-top " src="{{i.image.url}}" alt="Card image cap" style="width:100%; height:auto;">
+                          <div class="card-body">
+                             <div class="div-card-title">
+                                <h5 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h5>
+                              </div>
+                              <div class="div-card-price">
+                                <h6 class="card-price">Price : <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
+                              </div>
+                                <p class="card-text"><smaller>{{i.desc|slice:"0:53"}}...</smaller></p>
+                             
+                             <div class="div d-flex">
+                                <span id="divpr{{i.id}}" class="divpr">
+                                  <!-- <button id="pr{{i.id}}" class="btn btn-danger btn-block w-100 cart">Add To Cart</button>  -->
+                                    <button id="pr{{i.id}}" class="btn btn-danger btn-sm cart mx-1"> Add to cart
+                                      <i class="fa fa-shopping-cart"></i> 
+                                    </button>
+                                </span>
+                                <span  >
+                                  <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2">QuickView</button></a>
+                                </span>
+                              </div>
+
+                          </div>
                       </div>
                     </div>
+              </div> 
 
                     {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
                         </div>
                         <div class="carousel-item px-2" style="width:fit-content;">
                         
                     {% endif %}
+                 
+                 
+                 
                   {% endfor %}
-              
-              
-              </div> 
             </div> 
+                          
             
           {% endfor %}
   
@@ -707,7 +634,7 @@ if (user != 'AnonymousUser') {
     sum = 0;
     for (var item in cart) {
       sum = sum + cart[item][0];
-      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-danger plus'> + </button>";
+      document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-sm btn-danger minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-sm btn-danger plus'> + </button>";
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('database_cart', JSON.stringify(database_cart)); 

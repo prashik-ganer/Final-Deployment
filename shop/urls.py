@@ -5,6 +5,7 @@ from shop import views
 urlpatterns = [
     path("", views.index, name="ShopHome"),
     path("about/", views.about, name="AboutUs"),
+    path("scan/", views.scan, name="scan"),
     path("contact/", views.contact, name="ContactUs"),
     path("tracker/", views.tracker, name="TrackingStatus"),
     path("search/", views.search, name="Search"),
@@ -19,4 +20,6 @@ urlpatterns = [
     path("stores/", views.stores, name="stores"),
     path("update_item/", views.updateItem, name="update_item"),
     path("qrcode/id=<int:order_id>", views.qrcode, name="qrcode"),
+    path("allorders/", views.allOrders, name="all-orders"),
+    
 ]

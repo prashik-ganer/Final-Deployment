@@ -14,16 +14,32 @@ from django.contrib.admin.models import LogEntry
 from accounts.models import Customer, Seller
 
 from django.http import JsonResponse
-import numpy
+# import numpy
 
 import cloudinary
 from seller.forms import OrderQR
 
 import requests
 import json
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import AllOrdersSerializer
+
 # import cv2
+# import numpy as np
 # from pyzbar.pyzbar import decode
+# import urllib.request
+
+
+
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
     
+
 
 
 
@@ -51,10 +67,11 @@ def index(request):
     # print(cats)
     for cat in cats:
         prod = Product.objects.filter(category=cat)
-        n = len(prod)
+        n = len(prod)   
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
 
+    
     # user_cart = Cart.objects.values('customer', 'cart_items')
     # cartobjects = {item['customer'] for item in user_cart}                                       # Set comprehension
     # print(cartobjects)
@@ -64,13 +81,18 @@ def index(request):
         # cart, created = Cart.objects.update_or_create(
         # customer=customer, defaults={"cart_items": data}
         # )
+
+        # if Carts.objects.filter(customer=customer).exists():
+            
         cart_json, created = Cart.objects.get_or_create(customer=customer)
-        
+        # cart_json, created = Cart.objects.update_or_create(
+        #     customer=customer, 
+        # )
         if created:
             cart_json.cart_items = '{}'
             cart = cart_json.cart_items
             user_cart, created = Cart.objects.get_or_create(customer=customer, cart_items=cart)
-            params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart': cart}
+            params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart': cart, 'product':prod}
             cart_json.delete()
             return render(request, 'shop/index.html', params1)
 
@@ -82,7 +104,7 @@ def index(request):
             cart = customer_cart_item.replace("\'", "\"")
             print("replaced : ", cart)
             user_cart, created = Cart.objects.get_or_create(customer=customer, cart_items=customer_cart_item)
-            params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart': cart}
+            params1 = {'allProds': allProds, 'user_cart':user_cart, 'cart': cart, 'product':prod}
             cart_json.delete()
             return render(request, 'shop/index.html', params1)
 
@@ -113,6 +135,31 @@ def index(request):
     # params = {'allProds': allProds, 'user_cart':user_cart, 'cart':cart}
 
     return render(request, 'shop/index.html', params)
+
+
+def scan(request):
+
+    # cap = cv2.VideoCapture(0)
+    # while True:
+    #     success, img = cap.read()
+    #     for qrcode in decode(img):
+    #         # print(qrcode.data)
+    #         myData = qrcode.data.decode('utf-8')
+    #         print(myData)
+    #         pts = np.array([qrcode.polygon],np.int32)
+    #         pts = pts.reshape((-1,1,2))
+    #         cv2.polylines(img,[pts],True,(255,0,255),5)
+
+    #         pts2 = qrcode.rect
+    #         cv2.putText(img,myData,(pts2[0],pts2[1]), cv2.FONT_HERSHEY_SIMPLEX,0.9,(255,0,255),2)
+
+    #     cv2.imshow('Result : ', img)
+    #     cv2.waitKey(1)
+    # return render(request, 'shop/scan.html')
+    # # return HttpResponse("scan")
+    pass
+
+
 
 
 
@@ -172,8 +219,10 @@ def checkout(request):
             # if fullcaps == "on":
             #     print("fullcaps")
             print(request)
-            orderBtn = request.POST.get('removepunc', 'off')
-            pickupBtn = request.POST.get('removepunc', 'off')
+            #To be done
+            # seller = Seller.objects.filter(seller_name="shop_test")
+            # seller = seller.seller_user
+
             items_json = request.POST.get('itemsJson', '')
             mode = request.POST.get('mode', '')
             # print("pickup : ", pickup)
@@ -213,7 +262,7 @@ def checkout(request):
             # string_sample = json.dumps(sample)
             sample = sample.replace("\'","\"")
             # AIRTABLE-PYTHON INTEGRATION STARTS
-            update_url = 'https://api.airtable.com/v0/appJeyihmd9jyLKy1/Table?maxRecords=20&view=Orders'
+            update_url = env("AIRTABLE_ORDER_UPDATE_URL")
             update_headers = {
                 'Authorization': 'Bearer keydq2SURfHCN4Aig',
                 'Content-Type': 'application/json'
@@ -240,7 +289,7 @@ def checkout(request):
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
             order.order_qr = f"media/qrcode/{id}.png"
 
-            cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+            cloudinary.config(cloud_name=env("CLOUD_NAME"),api_key=env("API_KEY"), api_secret=env("API_SECRET_CLOUDINARY"))
             cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
 
 
@@ -266,7 +315,9 @@ def checkout(request):
 
             return render(request, 'shop/checkout.html', {'thank': thank, 'id': id})                    # 'thank' --> new parameter, : thank --> already declared variable
         else:
-            items_json = request.POST.get('itemsJson', '')
+            # seller = Seller.objects.filter(seller_name="shop_test")
+            # seller = seller.seller_user.name
+            items_json = request.POST.get('itemsJson2', '')
             name = request.POST.get('name', '')
             email = request.POST.get('email', '')
             amount = request.POST.get('totalPrice_database')
@@ -288,7 +339,7 @@ def checkout(request):
             sample = f'''{{'order_id': {id}}}'''
             sample = sample.replace("\'","\"")
             # AIRTABLE-PYTHON INTEGRATION STARTS
-            update_url = 'https://api.airtable.com/v0/appJeyihmd9jyLKy1/Table?maxRecords=20&view=Orders'
+            update_url = env("AIRTABLE_ORDER_UPDATE_URL")
             update_headers = {
                 'Authorization': 'Bearer keydq2SURfHCN4Aig',
                 'Content-Type': 'application/json'
@@ -313,7 +364,7 @@ def checkout(request):
             image_name = id
             image_qrcode = big_code.png(f'media/qrcode/{id}.png', scale=3, module_color=[0, 0, 0], background=[0xff, 0xff, 0xcc])
             order.order_qr = f"media/qrcode/{id}.png"
-            cloudinary.config(cloud_name='dbvh7sfop',api_key='773496946691131', api_secret='JZ8lR-OYtXZAOnhkCsnsEYoh70g')
+            cloudinary.config(cloud_name=env("CLOUD_NAME"),api_key=env("API_KEY"), api_secret=env("API_SECRET_CLOUDINARY"))
             cloudinary.uploader.upload(f"media/qrcode/{id}.png",public_id = f'{id}', folder="media/qrcode")
             # ---------------------------------------------------------------------------------------------------
             
@@ -491,7 +542,7 @@ def handleLogout(request):
     return redirect('ShopHome')
 
 
-
+# @api_view(['GET'])
 def category(request):
     
     # catprods = Product.objects.filter('category', 'id')
@@ -513,8 +564,9 @@ def category(request):
 
 
 
-    return render(request, 'shop/category.html', context)
+    # return Response(context)
     # return render(request, 'shop/category.html', contextalldetals)
+    return render(request, 'shop/category.html', context)
 
 
     
@@ -671,3 +723,14 @@ def qrcode(request, order_id):
     context = {'order_id':order_id, 'order':order}
 
     return render(request, 'shop/qrcode.html', context)
+
+
+@api_view(['GET'])
+def allOrders(request):
+    all_orders = Orders.objects.all()
+    print("type :: ", type(all_orders))
+    print("type :: ", all_orders)
+    serializer = AllOrdersSerializer(all_orders, many=True)
+    # print("All Orders : ", all_orders)
+
+    return Response(serializer)

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> {% endcomment %}
 
      <!--For Bootstrap 5 end1 -->
   
@@ -18,22 +18,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Bootstrap CSS -->
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
-
-
     <title>{% block title %} {% endblock title %}</title>
-    <!-- Hotjar Tracking Code for networktheory.herokuapp.com -->
-    <script>
-        (function(h,o,t,j,a,r){
-            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-            h._hjSettings={hjid:2182151,hjsv:6};
-            a=o.getElementsByTagName('head')[0];
-            r=o.createElement('script');r.async=1;
-            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-    </script>
     <script>
       var user = '{{request.user}}'
       console.log('USER: ',user)
@@ -76,27 +67,9 @@
     }
 
 
-    /*.card{
-      width:18rem;
-      height: 29rem; 
-    }*/
 
-@media screen and (min-width: 600px) {
-  
-      .footer_mobile{
-        visibility:hidden;
-      }
-         
-    }
 
-@media screen and (max-width: 600px) {
-      body{
-        {% comment %} background-color: #E2F0F1; {% endcomment %}
-        
-      }
-   
-        
-    } 
+
 
 
     .site-footer
@@ -269,11 +242,13 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-primary bg-light" style=" position: sticky; top: 0;  z-index: 3;">
-      <a class="navbar-brand" href="/shop"><b>SHOPHUNT</b></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+    <nav class="navbar nav-main navbar-expand-lg navbar-light bg-light px-2" style=" position: sticky; top: 0;  z-index: 3;">
+
+      <a class="navbar-brand text-dark mx-1" href="/shop"><b>NETWORK THEORY</b></a>
+      <button class="navbar-toggler border mx-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon "></span>
       </button>
+      
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -287,6 +262,10 @@
           <li class="nav-item {% block categoryactive %}{% endblock categoryactive %}">
             <a class="nav-link" href="/shop/category"><strong>CATEGORIES</strong></a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/shop/scan"><strong>SCAN</strong></a>
+          </li>
+          
           <li class="nav-item {% block storesactive %}{% endblock storesactive %}">
             <a class="nav-link" href="/shop/stores"><strong>STORES</strong></a>
           </li>
@@ -309,7 +288,13 @@
 
         <button type="button" class="btn btn-light mx-2 text-primary" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
         sagittis lacus vel augue laoreet rutrum faucibus.">
-          <b>Cart(<span id="cart" >0</span>)</b>
+          <a href="#" class="widget-header mr-3">
+				<div class="icon">
+					<i class="icon-sm rounded-circle border fa fa-shopping-cart"></i>
+					 <span class="notify" id="cart" > <smaller>0</smaller></span>
+				</div>
+			</a>
+         
         </button>
       </div>
 
@@ -329,13 +314,15 @@
           
           {% else %}
           <!-- Button trigger Login modal -->
-            <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
+          <div class="row">
+            <button type="button" class="btn  btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
               <b>Log-in</b>
             </button>
           <!-- Button trigger SignUp modal -->
-            <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
+            <button type="button" class="btn  btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
               <b>Sign-Up</b>
             </button>
+          </div>
          {% endif %} 
         
       
@@ -392,7 +379,7 @@
             </div>
             <div class="form-group">
               <label for="signupemail">Contact Number</label>
-              <input type="Number" class="form-control" id="contactnumber" name="email" placeholder="Contact" Required>
+              <input type="Number" class="form-control" id="contactnumber" name="phone" placeholder="Contact" Required>
             </div>
           <div class="row">
             <div class="form-group col-6">
@@ -416,6 +403,9 @@
 </div>
 
   <!-- Login Modal -->
+
+  
+ 
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -561,20 +551,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
   
-    <!-- For Bootstrap 5 start2 -->
-  
+    
 
-  <!------   RESPONSIBLE FOR UPDATE POPOVER   ----->
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-    -->
-
-  <!-- For Bootstrap 5 start2 -->
   
   <script>
   function myFunction() {

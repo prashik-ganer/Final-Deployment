@@ -27,6 +27,48 @@
 
 
 
+
+
+
+
+@media screen and (max-width: 1205px) {
+
+	.date-th, .date-td{
+		display:none;
+	}
+	.products-btn{
+		visibility:visible;
+	}
+	
+	
+
+}
+
+
+
+
+@media screen and (max-width: 1000px) {
+
+
+
+
+}
+
+
+@media screen and (max-width: 500px) {
+
+
+}
+
+
+
+@media screen and (max-width: 390px) {
+
+
+}
+
+
+
 {% endblock css %}
 
 {% block body %}
@@ -145,7 +187,7 @@
 
 <div class="row">
 	<div class="col-md">
-		<div class="card card-body">
+		<div class="card card-body p-0">
 			<table class="table table-sm table-striped">
 			<div class="accordian-body">
 				<div class="card card-body">
@@ -154,31 +196,50 @@
 			</div>
 			</div>
 				<tr  class="bg-info">
-					<th class="bg-info" data-colname="name" data-order="desc">Customer</th>
-					<th data-colname="orderId" data-order="desc">OrderId</th>
-					<th data-colname="products" data-order="desc">Products</th>
-					<th data-colname="dateOrdered" data-order="desc">Date Orderd</th>
-					<th data-colname="amount" data-order="desc">Amount</th>
-					<th data-colname="mode" data-order="desc">Mode</th>
-					<th data-colname="status" data-order="desc">Status</th>
-					<th data-colname="updateStatus" data-order="desc">Update Status</th>
+					<th class="bg-info customer-th" data-colname="name" data-order="desc">Customer</th>
+					<th class="orderId-th" data-colname="orderId" data-order="desc">OrderId</th>
+					<th class="products-th" data-colname="products" data-order="desc">Products</th>
+					<th class="date-th" data-colname="dateOrdered" data-order="desc">Date Orderd</th>
+					<th class="amount-th" data-colname="amount" data-order="desc">Amount</th>
+					<th class="mode-th" data-colname="mode" data-order="desc">Mode</th>
+					<th class="status-th" data-colname="status" data-order="desc">Status</th>
+					<th class="update-status-th" data-colname="updateStatus" data-order="desc">Update Status</th>
 				</tr>
 				<tbody>
                     {% for order_item in order %}
 					<tr>
-						<td><b>{{order_item.name}}</b></td>
-						<td>{{order_item.order_id}}</td>
-						<td>
-						<ul class="list-group " id="items_json{{order_item.order_id}}" >
+						<td class="customer-td"><b>{{order_item.name}}</b></td>
+						<td class="orderId-td">{{order_item.order_id}}</td>
+						<td class="products-td">
+						{% comment %} <div class="products-list">
+							<ul class="list-group " id="items_json{{order_item.order_id}}" >
+								<!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
+								
+							</ul>
+						</div> {% endcomment %}
+						<div class="products-btn">
+						
+						<button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+
+						<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+								<ul class="list-group " id="items_json{{order_item.order_id}}" >
 							<!-- VERY IMPORTANT line to display cart items on checkout page (Also id="items" => helps in triggering <ul>....</ul> to display cart items on checkout page)  -->
 							
-						</ul></td>
-						<td>{{order_item.date_created|date:'D d M Y'}}</td>
-						<td>₹ {{order_item.amount}}</td>
-						<td>{{order_item.mode}}</td>
-						<td>{{order_item.status}}</td> 
+								</ul>
+								</div>
+							</div>
+						</div>
+						</div>
+
+						</td>
+						<td class="date-td">{{order_item.date_created|date:'D d M Y'}}</td>
+						<td class="amount-td">₹ {{order_item.amount}}</td>
+						<td class="mode-td">{{order_item.mode}}</td>
+						<td class="status-td">{{order_item.status}}</td> 
 						{% comment %} <td><a class="btn btn-sm btn-info" href="{% url 'sellerTracker' order_item.order_id %}">Tracker</a></td> {% endcomment %}
-						<td><a class="btn btn-sm btn-info" href="{% url 'updateStatus' order_item.order_id %}"><b>Update Status</b></a></td>
+						<td><a class="btn btn-sm btn-info update-status-td" href="{% url 'updateStatus' order_item.order_id %}"><b>Update</b></a></td>
 						<!-- {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'update_order' order.id %}">Delete</a></td> {% endcomment %} -->
                         </tr>
 						
@@ -188,8 +249,6 @@
 		</div>
 	</div>
 </div>
-
-
 
 
 

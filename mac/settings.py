@@ -16,6 +16,16 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+import environ
+
+env = environ.Env()
+# reading .env file
+environ.Env.read_env()
+
+# Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
+
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +34,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'gx7ipxeaapz8ic1wr#nn7xnrg^^j5mcxt_f)ktvtyb+hge6p4-'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -49,8 +59,15 @@ INSTALLED_APPS = [
     'django_filters',
     'cloudinary_storage',
     'cloudinary',
-    'airtable'
+    'airtable',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -143,14 +160,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    '/var/www/static/',
+    # '/var/www/static/',
 ]
 
 # Managing Media
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+DEFAULT_FILE_STORAGE = env("DEFAULT_FILE_STORAGE")
 
 # Message Tags
 MESSAGE_TAGS = {
@@ -161,9 +178,9 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dbvh7sfop',
-    'API_KEY': '773496946691131',
-    'API_SECRET': 'JZ8lR-OYtXZAOnhkCsnsEYoh70g'
+    'CLOUD_NAME': env("CLOUD_NAME"),
+    'API_KEY': env("API_KEY"),
+    'API_SECRET': env("API_SECRET_CLOUDINARY")
 }
 
 
