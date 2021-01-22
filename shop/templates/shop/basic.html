@@ -247,9 +247,7 @@
     <nav class="navbar nav-main navbar-expand-lg navbar-light bg-light px-2" style=" position: sticky; top: 0;  z-index: 3;">
 
       <a class="navbar-brand text-dark mx-1" href="/shop"><b>NETWORK THEORY</b></a>
-      <button class="navbar-toggler border mx-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon "></span>
-      </button>
+
       
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -261,6 +259,8 @@
            --> 
              
           {% comment %} {% if request.user.is_staff %} {% endcomment %}
+    <!--
+
           <li class="nav-item {% block categoryactive %}{% endblock categoryactive %}">
             <a class="nav-link" href="/shop/category"><strong>CATEGORIES</strong></a>
           </li>
@@ -271,9 +271,6 @@
           <li class="nav-item {% block storesactive %}{% endblock storesactive %}">
             <a class="nav-link" href="/shop/stores"><strong>STORES</strong></a>
           </li>
-          {% comment %} <li class="nav-item {% block aboutactive %}{% endblock aboutactive %}">
-            <a class="nav-link" href="/shop/about"><strong>ABOUT US</strong></a>
-          </li> {% endcomment %}
           <li class="nav-item {% block trackeractive %}{% endblock trackeractive %}">
             <a class="nav-link" href="/shop/tracker"><strong>TRACKER</strong></a>
           </li>
@@ -281,6 +278,7 @@
             <a class="nav-link" href="/shop/contact"><strong>CONTACT US</strong></a>
           </li>
 
+    -->
           {% comment %} {% endif %} {% endcomment %}
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -288,21 +286,26 @@
           <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
 
-        <button type="button" class="btn btn-light mx-2 text-primary" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+        <button type="button" class="btn btn-light mx-2 text-primary d-flex flex-column justify-content-center align-items-centery" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
         sagittis lacus vel augue laoreet rutrum faucibus.">
           <a href="#" class="widget-header mr-3">
-				<div class="icon">
-					<i class="icon-sm rounded-circle border fa fa-shopping-cart"></i>
+				{% comment %} <div class="icon">
+					<i class="fas fa-shopping-bag fa-lg"></i>
 					 <span class="notify" id="cart" > <smaller>0</smaller></span>
-				</div>
+				</div> {% endcomment %}
 			</a>
          
         </button>
       </div>
 
        {% if user.is_authenticated %}
+
+       <div class="icon mx-4">
+					<i class="fas fa-shopping-bag fa-lg"></i>
+					 <span class="notify" id="cart" > <smaller>0</smaller></span>
+				</div>
           
-          <ul class="navbar-nav ml-auto">
+          {% comment %} <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                <b> Welcome {{request.user}} </b>
@@ -312,7 +315,7 @@
                 <a class="dropdown-item" href="/shop/logout">Log-out</a>
               </div>
             </li>
-          </ul>
+          </ul> {% endcomment %}
           
           {% else %}
           <!-- Button trigger Login modal -->

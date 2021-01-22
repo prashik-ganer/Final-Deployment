@@ -26,6 +26,10 @@
         background: rgb(243, 195, 39);
     }
 
+    .table td, .table th {
+    font-size: 0.8rem;
+    }
+
 
 
 
@@ -33,6 +37,12 @@
 {% endblock css %}
 
 {% block body %}
+
+
+
+   {% if user.is_authenticated %}
+          
+
 
 <br>
 <div class="row mx-1">
@@ -100,21 +110,21 @@
 
         <div class="row">
             <div class="col-md">
-                <div class="card card-body">
+                <div class="card card-body  px-1  ">
                     <table class="table table-sm">
                         <tbody>
                             <tr>
-                                <th>Order_id</th>
-                                <th>Product</th>
-                                <th>Date & Time Orderd</th>
-                                <th>Status</th>
-                                <th>Order Pin</th>
+                                <th>ORDER_ID</th>
+                                {% comment %} <th>PRODUCTS</th> {% endcomment %}
+                                <th>TIME</th>
+                                <th>STATUS</th>
+                                <th>ORDER QR</th>
                             </tr>
                             {% for order in orders %}
                                 <tr>
                                     <td>{{order.order_id}}</td>
-                                    <td>{{order.product.category}}</td>
-                                    <td>{{order.date_created}}</td>
+                                    {% comment %} <td>{{order.product.category}}</td> {% endcomment %}
+                                    <td>{{order.date_created|date:'d M Y'}}</td>
                                     <td>{{order.status}}</td>
 							        <td><a class="btn btn-sm btn-info" href="/shop/qrcode/id={{order.order_id}}"><b>View</b></a></td>
 
@@ -128,20 +138,115 @@
         </div>
     </div>
 </div>
+<div class="col ">
+            
+            
+              <a type="button" href="/shop/logout" class="btn btn-block row btn-info text-light mx-2 my-4">
+                <b>LOGOUT</b>
+              </a>
 
-
-
-    <div class="container-fluid">
+          
+          {% else %}
+            <div class="container">
+                <h3>PLEASE LOGIN TO SEE INFO</h3>
+            </div>
+         <!-- Button trigger Login modal -->
+          <div class="col ">
+            <button type="button" class="btn btn-block row btn-info text-light mx-2 my-4" data-toggle="modal" data-target="#loginModal">
+              <b>Log-in</b>
+            </button>
+          <!-- Button trigger SignUp modal -->
+            <button type="button" class="btn row btn-block btn-info text-light mx-2 my-4" data-toggle="modal" data-target="#signupModal">
+              <b>Sign-Up</b>
+            </button>
+          </div>
         
+      
 
 
-        <!--
-        <div class="message-alert">
-            <p>NOTE: To view source code & tutorial videos visit "Source Code/Tutorials" in the navigation bar above.</p>
+
+    </nav>
+
+
+
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          <strong>Message :</strong> {{ message}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        -->
-        
+      {% endfor %}
+
+
+<!-- SignUp Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalTitle">SIGN-UP</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="font-family:poppins">
+       
+       
+        <form action="/shop/signup/" method="post">
+        {% csrf_token %}
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="fname">First Name</label>
+              <input type="text" class="form-control bg-muted" id="fname" name="fname" placeholder="First Name" Required>
+            </div>
+            <div class="form-group col-6">
+              <label for="lname">Last Name</label>
+              <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" Required>
+            </div>
+          </div>
+            
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique username" Required>
+            </div>
+            <div class="form-group">
+              <label for="signupemail">Email Address</label>
+              <input type="email" class="form-control" id="signupemail" name="email" placeholder="Email" Required>
+            </div>
+            <div class="form-group">
+              <label for="signupemail">Contact Number</label>
+              <input type="Number" class="form-control" id="contactnumber" name="phone" placeholder="Contact" Required>
+            </div>
+          <div class="row">
+            <div class="form-group col-6">
+              <label for="pass1">Password</label>
+              <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Choose your password" Required>
+            </div>
+            <div class="form-group col-6">
+              <label for="pass2">Confirm Password</label>
+              <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm your password" Required>
+            </div>
+          </div>
+            
+
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
     </div>
+  </div>
+</div>
+
+ 
 
 
+         {% endif %} 
+        
+      
+
+
+<div class="container-fluid mt-5">
+{% include 'shop/footer.html' %}
+</div>
 {% endblock body %}

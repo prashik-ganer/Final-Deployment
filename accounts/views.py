@@ -60,35 +60,38 @@ def userPage(request):
     'delivered':delivered, 'pending':pending}
     return render(request, 'accounts/user.html', context)
 
-@login_required(login_url='/')
-@allowed_users(allowed_roles=['customer'])
+# @login_required(login_url='/')
+# @allowed_users(allowed_roles=['customer'])
 def accountSettings(request):
     # not own
-    print("request.user ----> ", request.user)
-    print("request.user.customer ----> ", request.user.customer)
-    orders = request.user.customer.orders_set.all()
-    # print(orders)
-    
-    total_orders = orders.count()
-    delivered = orders.filter(status='Delivered').count()
-    pending = orders.filter(status='Pending').count()
+    if request.user.is_authenticated:
 
-    context2 = {}
+        print("request.user ----> ", request.user)
+        print("request.user.customer ----> ", request.user.customer)
+        orders = request.user.customer.orders_set.all()
+        # print(orders)
+        
+        total_orders = orders.count()
+        delivered = orders.filter(status='Delivered').count()
+        pending = orders.filter(status='Pending').count()
 
-
-    # own
-    customer = request.user.customer
-    form = CustomerForm(instance=customer)
-
-    if request.method == 'POST':
-        form = CustomerForm(request.POST, request.FILES, instance=customer)
-        if form.is_valid():
-            form.save()
-    context = {'form':form, 'orders':orders, 'total_orders':total_orders,
-    'delivered':delivered, 'pending':pending}
+        context2 = {}
 
 
-    return render(request, 'accounts/account_settings.html', context)
+        # own
+        customer = request.user.customer
+        form = CustomerForm(instance=customer)
+
+        if request.method == 'POST':
+            form = CustomerForm(request.POST, request.FILES, instance=customer)
+            if form.is_valid():
+                form.save()
+        context = {'form':form, 'orders':orders, 'total_orders':total_orders,
+        'delivered':delivered, 'pending':pending}
+
+
+        return render(request, 'accounts/account_settings.html', context)
+    return render(request, 'accounts/account_settings.html')
 
 
 

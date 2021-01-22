@@ -16,41 +16,42 @@
   width:100%;
   padding: 5px 0;
 }
-i{
-  font-size: 1.4rem;
+.textnav{
+  font-size: 0.8rem;
 }
 
  </style>
-<div class="row site-footer d-flex flex-row pt-2 pb-0 px-1">
+<div class="row site-footer d-flex flex-row pt-3 pb-0 px-1">
     <div class="d-flex flex-row justify-content-around" style="flex:1">
-    <a  href="/shop/" class="col d-flex flex-column align-content-center">
-      <div class="row d-flex flex-column align-content-center"><i class="fas fa-home"></i></div>
-      <div class="row d-flex flex-column align-content-center"><b>HOME</b></div>
+    <a  href="/shop/" class="col d-flex flex-column  justify-content-end">
+      <div class="row d-flex flex-column align-content-center"><i class="fas fa-home fa-lg"></i></div>
+      <div class="row d-flex flex-column align-content-center text-sm textnav"><b>HOME</b></div>
     </a>
-    <a  href="/shop/category" class="col">
-      <div class="row d-flex flex-column align-content-center"><i class="fas fa-th "></i></div>
-      <div class="row d-flex flex-column align-content-center"><b>CATEGORY</b></div>
+    <a  href="/shop/category" class="col d-flex flex-column  justify-content-end">
+      <div class="row d-flex flex-column align-content-center"><i class="fas fa-th fa-lg"></i></div>
+      <div class="row d-flex flex-column align-content-center textnav"><b>CATEGORY</b></div>
     </a>
     <a href="#" class="col d-flex flex-column justify-content-center">
-      <div class="row d-flex flex-column align-content-center"><i class="fas fa-store-alt"></i></div>
+      <div class="row d-flex flex-column align-content-center textnav"><i class="fas fa-store-alt fa-lg"></i></div>
     </a>
-    <a href="/shop/tracker" class="col d-flex flex-column align-content-center">
-      <div class="row d-flex flex-column align-content-center"><i class="fas fa-stopwatch-20 fa-2x"></i></div>
-      <div class="row d-flex flex-column align-content-center"><b>TRACK</b></div>
+    <a href="/shop/tracker"class="col d-flex flex-column  justify-content-end">
+      <div class="row d-flex flex-column align-content-center"><i class="fas fa-stopwatch-20 fa-lg"></i></div>
+      <div class="row d-flex flex-column align-content-center textnav"><b>TRACK</b></div>
     </a>
-    <a href="/accounts/account"  class="col d-flex flex-column align-content-center">
-      <div class="row d-flex flex-column align-content-center"><i class="fas fa-user-circle"></i></div>
-      <div class="row d-flex flex-column align-content-center"><b>PROFILE</b></div>
+    <a href="/accounts/account"  class="col d-flex flex-column  justify-content-end">
+      <div class="row d-flex flex-column align-content-center"><i class="fas fa-user-circle fa-lg"></i></div>
+      <div class="row d-flex flex-column align-content-center textnav"><b>PROFILE</b></div>
     </a>
     </div>
   </div>
 </footer>
 
-{% comment %} <a href="checkout">
+ <!--<a href="checkout">
   <div class="checkout-main">
     <div class="checkoutBtn" style="display: flex; flex-direction: column; align-items: center;">
+      <i class="fas fa-shopping-bag fa-5x"></i>
       <img src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1610582328/media/checkout%20image.png" alt="">
     <p ><strong>CHECKOUT</strong></p>
     </div>
   </div>
-</a> {% endcomment %}
+</a>-->
