@@ -262,9 +262,7 @@ font-size: 0.5rem;
 
 </section>
 
-<div class="container-fluid">
-{% include 'shop/footer.html' %}
-</div>
+
 
 
 {% comment %} 
@@ -302,13 +300,15 @@ font-size: 0.5rem;
 </div>   {% endcomment %}
 
 
-
+<div class="container-fluid mt-5">
+{% include 'shop/footer.html' %}
+</div>
 {% endblock %}
 
 {% block js %}
 
 <script>
-      
+ThunkableWebviewerExtension.postMessage('hello world');  
 
 
 
