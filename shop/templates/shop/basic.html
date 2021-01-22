@@ -20,6 +20,8 @@
     <!-- Bootstrap CSS -->
 
     <!--  THUNKABLE LINK -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
     <script src="https://thunkable.github.io/webviewer-extension/thunkableWebviewerExtension.js" type="text/javascript"></script>
     <!--  THUNKABLE LINK -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
@@ -246,7 +248,7 @@
 
     <nav class="navbar nav-main navbar-expand-lg navbar-light bg-light px-2" style=" position: sticky; top: 0;  z-index: 3;">
 
-      <a class="navbar-brand text-dark mx-1" href="/shop"><b>NETWORK THEORY</b></a>
+      <a class="navbar-brand text-dark mx-1" href="/shop" style="font-family: 'Russo One', sans-serif;">NETWORK THEORY</a>
 
       
 
@@ -300,10 +302,12 @@
 
        {% if user.is_authenticated %}
 
-       <div class="icon mx-4">
+      <a href="checkout " class="text-decoration-none text-dark">
+       <div  class="icon mx-4 ">
 					<i class="fas fa-shopping-bag fa-lg"></i>
 					 <span class="notify" id="cart" > <smaller>0</smaller></span>
 				</div>
+      </a>
           
           {% comment %} <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -320,11 +324,11 @@
           {% else %}
           <!-- Button trigger Login modal -->
           <div class="row">
-            <button type="button" class="btn  btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
+            <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
               <b>Log-in</b>
             </button>
           <!-- Button trigger SignUp modal -->
-            <button type="button" class="btn  btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
+            <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
               <b>Sign-Up</b>
             </button>
           </div>
