@@ -265,6 +265,10 @@
 
 {% block js %}
 <script>
+setTimeout(function(){
+   window.location.reload(1);
+}, 5000);
+
 if (localStorage.getItem('cart') == null) {
     var cart = {};
   } else {

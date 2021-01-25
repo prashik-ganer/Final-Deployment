@@ -317,7 +317,7 @@ def checkout(request):
         else:
             # seller = Seller.objects.filter(seller_name="shop_test")
             # seller = seller.seller_user.name
-            items_json = request.POST.get('itemsJson2', '')
+            items_json = request.POST.get('itemsJson', '')
             name = request.POST.get('name', '')
             email = request.POST.get('email', '')
             amount = request.POST.get('totalPrice_database')
@@ -467,7 +467,7 @@ def handleSignup(request):
                 seller_name=fname,
                 seller_email=email,
             )
-            messages.success(request, "Your SHOPHUNT account has been successfully created!")
+            messages.success(request, "Your account has been successfully created!")
             return redirect('seller')
         else:
             group = Group.objects.get(name='customer')
@@ -480,7 +480,7 @@ def handleSignup(request):
 
             )
 
-            messages.success(request, "Your SHOPHUNT account has been successfully created!")
+            messages.success(request, "Your account has been successfully created!")
             return redirect('ShopHome')
     else:
         return HttpResponse("404 - Not Found")  
