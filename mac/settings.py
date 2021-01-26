@@ -60,11 +60,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'airtable',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
 ]
 
 SITE_ID = 1
