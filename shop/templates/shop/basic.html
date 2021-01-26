@@ -69,6 +69,20 @@
     nav{
       font-family: poppins;
     }
+    
+    @media screen and (max-width: 500px) {
+    .navbar-brand{
+    font-size: 1 rem;
+    }
+
+    .btn-group-sm>.btn, .btn-sm {
+
+      font-size: 0.6rem;
+
+      }
+    
+
+    }
 
 
 
@@ -304,9 +318,9 @@
          
        {% if user.is_authenticated %}
 
-      <a href="checkout " class="text-decoration-none text-dark">
-       <div  class="icon mx-4 ">
-					<i class="fas fa-shopping-bag fa-lg"></i>
+      <a href="checkout " class="text-decoration-none text-dark mx-0">
+       <div  class="icon">
+					<i class="fas fa-shopping-bag fa-lg mx-0"></i>
 					 <span class="notify" id="cart" > <smaller>0</smaller></span>
 				</div>
       </a>
@@ -326,7 +340,7 @@
           {% else %}
           <!-- Button trigger Login modal -->
           <a href="checkout " class="text-decoration-none text-dark">
-       <div  class="icon mx-4 ">
+       <div  class="icon ">
 					<i class="fas fa-shopping-bag fa-lg"></i>
 					 <span class="notify" id="cart" > <smaller>0</smaller></span>
 				</div>

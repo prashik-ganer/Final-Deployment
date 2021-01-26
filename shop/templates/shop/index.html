@@ -163,6 +163,34 @@ body{
 
 {% load static %}
 
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1611611639/media/Website%20Assets/fx47imfggiipodejisw2.jpg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1611618229/media/Website%20Assets/mjx49ya3dwrmcz8ebypc.png" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="https://res.cloudinary.com/dbvh7sfop/image/upload/v1611621477/media/Website%20Assets/mlahgt7hsiyvp5ukzrye.png" alt="Third slide">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="section-content container padding-bottom-sm">
   <div class="">
   {% for product, range, nSlides in allProds %}
@@ -186,7 +214,7 @@ body{
               <div class="img-container d-flex  justify-content-center">
                 <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap">
               </div>
-                <div class="card-body px-2">
+                <div class="card-body px-2 pt-2 pb-2">
                   <h5 class="card-title my-0" id="namepr{{i.id}}">{{i.product_name}}</h5>
                   <h6 class="card-price my-1">Price : <span id="pricepr{{i.id}}">{{i.price}}</span></h6>
                   <p class="card-text ">{{i.desc|slice:"0:53"}}...</p>
