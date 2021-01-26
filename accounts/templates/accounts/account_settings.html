@@ -250,3 +250,21 @@
 {% include 'shop/footer.html' %}
 </div>
 {% endblock body %}
+
+
+{% block js %}
+
+<script>
+
+if (localStorage.getItem('cart') == null) {
+               var cart = {};
+            } else {
+               cart = JSON.parse(localStorage.getItem('cart'));
+               document.getElementById('cart').innerHTML = Object.keys(cart).length;
+
+
+            }
+</script>
+
+
+{% endblock js %}

@@ -196,11 +196,11 @@ body{
   {% for product, range, nSlides in allProds %}
         
       <div aria-label="breadcrumb my-5 border-left-primary">
-        <ol class="breadcrumb my-2 mb-0 border">
-          <li class="breadcrumb-item active mt-1  mr-auto text-uppercase" aria-current="page">
-            <h5><b> {{product.0.category}} </b></h5>
+        <ol class="breadcrumb my-2  border" style="font-family: 'Russo One', sans-serif; background: #fca311;">
+          <li class="breadcrumb-item active mt-1  mr-auto text-dark text-uppercase" aria-current="page">
+            <h6><b> {{product.0.category}} </b></h6>
           </li>
-          <a href="/shop/category/{{product.0.category}}" class="btn btn-outline-primary float-right"><b>See all</b></a>
+          <a href="/shop/category/{{product.0.category}}" class="btn btn-outline-light text-light float-right"><b>See all</b></a>
         </ol>
       </div>
 
@@ -227,7 +227,7 @@ body{
                       </button>
                     </span>
                     <span  >
-                    <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2 quickViewBtn"><b>QuickcView</b></button></a>
+                    <a href="/shop/products/prod={{i.id}}"><button id="qv{{i.id}}" class="btn btn-sm btn-outline-primary cart mx-2 quickViewBtn"><b>QuickView</b></button></a>
                     
                     </span>
                   </div>

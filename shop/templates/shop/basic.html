@@ -68,6 +68,8 @@
 
     nav{
       font-family: poppins;
+box-shadow: 0px 12px 22px -16px rgba(0, 0, 0, 0.5);
+-webkit-box-shadow: 0px 12px 22px -16px rgba(0, 0, 0, 0.5);
     }
     
     @media screen and (max-width: 500px) {
@@ -83,7 +85,7 @@
     
 
     }
-
+    
 
 
 
@@ -307,18 +309,14 @@
         <button type="button" class="btn btn-light mx-2 text-primary d-flex flex-column justify-content-center align-items-centery" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
         sagittis lacus vel augue laoreet rutrum faucibus.">
           <a href="#" class="widget-header mr-3">
-				{% comment %} <div class="icon">
-					<i class="fas fa-shopping-bag fa-lg"></i>
-					 <span class="notify" id="cart" > <smaller>0</smaller></span>
-				</div> {% endcomment %}
 			</a>
          
         </button>
       </div>
          
-       {% if user.is_authenticated %}
+       {% comment %} {% if user.is_authenticated %} {% endcomment %}
 
-      <a href="checkout " class="text-decoration-none text-dark mx-0">
+      <a href="{% url 'Checkout' %}" class="text-decoration-none text-dark mx-3">
        <div  class="icon">
 					<i class="fas fa-shopping-bag fa-lg mx-0"></i>
 					 <span class="notify" id="cart" > <smaller>0</smaller></span>
@@ -337,24 +335,24 @@
             </li>
           </ul> {% endcomment %}
           
-          {% else %}
+          {% comment %} {% else %} {% endcomment %}
           <!-- Button trigger Login modal -->
-          <a href="checkout " class="text-decoration-none text-dark">
-       <div  class="icon ">
-					<i class="fas fa-shopping-bag fa-lg"></i>
-					 <span class="notify" id="cart" > <smaller>0</smaller></span>
-				</div>
-      </a>
+          <!--<a href="checkout " class="text-decoration-none text-dark">
+            <div  class="icon ">
+                <i class="fas fa-shopping-bag fa-lg"></i>
+                <span class="notify" id="cart" > <smaller>0</smaller></span>
+              </div>
+            </a>
           <div class="row">
             <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
               <b>Log-in</b>
             </button>
-          <!-- Button trigger SignUp modal -->
+          <!-- Button trigger SignUp modal 
             <button type="button" class="btn btn-sm btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
               <b>Sign-Up</b>
             </button>
-          </div>
-         {% endif %} 
+          </div>-->
+         {% comment %} {% endif %}  {% endcomment %}
         
       
 
@@ -570,9 +568,6 @@
 
 
 
-<div class="container-fluid mt-5">
-{% include 'shop/footer.html' %}
-</div>
   {% block body %} {% endblock body %}
 
 
