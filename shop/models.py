@@ -51,7 +51,7 @@ class Orders(models.Model):
     
     address= models.CharField(max_length=111)
     zip_code= models.CharField(max_length=111)  
-    phone= models.BigIntegerField(default=0)
+    phone= models.BigIntegerField()
     status = models.CharField(max_length=200, null=True, blank=True, choices=STATUS, default="Pending")
     mode = models.CharField(max_length=200, null=True, blank=True, choices=MODE)
     # order_qr = CloudinaryField('qrcode', null=True, blank=True)
